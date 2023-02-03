@@ -27,6 +27,10 @@ A webxr youtube player in your own little private theatre
 Play a piano with hand tracking!
 * [Papyrus Please](https://js13kgames.com/games/papyrus-please/index.html)
 A variation on "Papers Please"
+* [Elfland Glider](https://dougreeder.github.io/elfland-glider/)
+Fly through fantastic worlds, help the merry and mischievous light elves, and avoid the surly and mischievous dark elves.
+* [Barrier Mage](https://dougreeder.github.io/barrier-mage/) [Requires headset and two 6-DOF controllers]
+Draw mystic symbols to burn, protect, or detect & drive off fantastic creatures!
 ## General WebXR
 ### SideQuest WebXR Directory:
 This is likely to be the de-facto web directory going forward:

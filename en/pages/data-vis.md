@@ -1,4 +1,7 @@
 # Libraries for Graphing
+## aframe-babia-components (BabiaXR)
+[source](https://gitlab.com/babiaxr/aframe-babia-components)
+Maintained. Data visualization/management components.
 ## a-framedc
 [original source](https://github.com/fran-aguilar/a-framedc)
 [fork showing working demos](https://github.com/kylebakerio/a-framedc)

@@ -40,6 +40,12 @@ I'm still looking for it. You can check the **AR** channel on the A-Frame slack-
 ## A-Frame AR
 This is a tiny, relatively unknown demo library, but it does seem to accomplish what may be most desired--simple integration of 6dof AR utilizing the WebXR spec with A-Frame. I haven't seen anyone talk about this other than one of the authors on his [blog post](https://jsantell.com/web-ar-prototypes/), but the demos appear to be working.
 
+## MindAR.js
+MindAR is an opensource web augmented reality library which is compatible with A-Frame and Three.Js. It has solid supports Image Tracking and Face Tracking.  To learn more visit its [GitHub page](https://github.com/hiukim/mind-ar-js).
+
+## Martins.js
+MARTINS.js is a GPU-accelerated Augmented Reality engine for the web, which is compatible with Chrome, Edge, Firefox and Opera browsers. It supports image tracking functionality. To learn more visit its [GitHub page](https://github.com/alemart/martins-js).
+
 ## Model Viewer
 For many simple cases (especially store-based concepts), the [Model Viewer library](https://modelviewer.dev/docs/#augmentedreality-attributes) will be a good solution to placing a model in AR. It falls back well on iOS devices.
 

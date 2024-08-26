@@ -14,6 +14,8 @@ Requires [running your own synchronization server](https://github.com/networked-
 
 Can do anything, but has a reputation for being tricky to get working the way you want it.
 
+Supports multiple instances of a room configuration. Room system not updated to latest version.
+
 ### [Hubs](https://hubsfoundation.org/)
 
 A complete shared virtual world implementation, with good support for personal computer and mobile users.
@@ -22,6 +24,7 @@ Content management tools allow building worlds without code, and without running
 However, adding A-Frame components requires running your own synchronization server or using Hubs Cloud, to serve a custom client.
 Uses forked versions of A-Frame and NAF, so compatibility with 3rd-party components is far from guaranteed.
 
+Supports multiple instances of a room configuration.
 
 ### [A-Frame Croquet Component](https://github.com/NikolaySuslov/aframe-croquet-component)
 
@@ -39,22 +42,25 @@ Off-the-shelf A-Frame components maintain state internally, so don't gain the fu
 
 It's super-easy to [throw together a multi-user experience](https://github.com/NikolaySuslov/aframe-croquet-component#how-to-share-an-entity-in-an-a-frame-scene-with-other-users) (without voice chat), but as an immature library, you might have to code and submit a PR to get advanced capabilities.
 
+Supports multiple instances of a room configuration.
+
 ## Comparison Table
 
-|                            | aframe-croquet-component | networked-aframe                | Hubs w/ custom client                                        |
-|----------------------------|--------------------------|---------------------------------|--------------------------------------------------------------|
-| server setup               | none                     | easy                            | hard                                                         |
+|                            | aframe-croquet-component | networked-aframe                                                         | Hubs w/ custom client                                        |
+|----------------------------|--------------------------|--------------------------------------------------------------------------|--------------------------------------------------------------|
+| server setup               | none                     | easy                                                                     | hard                                                         |
 | maintained                 | yes                      | yes for core and janus adapter, easyrtc adapter has long standing issues | yes                                                          |
-| A-Frame versions           | 1.3.0 - 1.6.0            | 1.4.1                           | forked, primitives removed, planned to be completely removed |
-| code maturity              | immature                 | mature for core and janus adapter | mature                                                       |
-| synced attributes          | all                      | by schema                       | by schema                                                    |
-| object mutation & deletion | anyone                   | owner                           | owner                                                        |
-| private sessions           | automatic                | manual, add auth to the easyrtc server and JWT for janus | automatic                                                    |
-| voice chat                 | no                       | yes                             | yes                                                          | 
-| user avatar selection      | no                       | no                              | yes                                                          |
-| custom network messages    | yes                      | yes                             | yes                                                          |
-| state preserved w/o users  | yes                      | no                              | no, but you can pin objects to keep them                     |
-| synced random seeds        | yes                      | no                              | no?                                                          |
-| example                    | https://xalot.surge.sh/  | https://naf-examples.glitch.me/ |                                                              |
+| A-Frame versions           | 1.3.0 - 1.6.0            | 1.4.1                                                                    | forked, primitives removed, planned to be completely removed |
+| code maturity              | immature                 | mature for core and janus adapter                                        | mature                                                       |
+| instanced rooms            | yes                      | yes, but not updated to latest                                           | yes                                                          |
+| synced attributes          | all                      | by schema                                                                | by schema                                                    |
+| object mutation & deletion | anyone                   | owner                                                                    | owner                                                        |
+| private sessions           | automatic                | manual, add auth to the easyrtc server and JWT for janus                 | automatic                                                    |
+| voice chat                 | no                       | yes                                                                      | yes                                                          | 
+| user avatar selection      | no                       | no                                                                       | yes                                                          |
+| custom network messages    | yes                      | yes                                                                      | yes                                                          |
+| state preserved w/o users  | yes                      | no                                                                       | no, but you can pin objects to keep them                     |
+| synced random seeds        | yes                      | no                                                                       | no?                                                          |
+| example                    | https://xalot.surge.sh/  | https://naf-examples.glitch.me/                                          |                                                              |
 
 * synced random seeds: these are commonly used to procedurally generate the same world on each client.

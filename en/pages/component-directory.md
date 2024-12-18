@@ -221,7 +221,7 @@ If you find something that isn't here add it! If you build something, add it! Ol
 | touch-controls with movement-controls | Touch screen (or Cardboard button) to move forward. | [Repo](https://github.com/c-frame/aframe-extras/tree/master/src/controls) | None | Maintained | 1.7.0 | |
 | trackpad-controls with movement-controls | Trackpad-based movement. | [Repo](https://github.com/c-frame/aframe-extras/tree/master/src/controls) | None | Maintained | 1.7.0 | |
 | trail | Simple geometrical trail component | [Repo](https://github.com/EricEisaman/aframe-trail-component) | See repo. No live example | Unknown | 1.3.0 | |
-| troika-text | An A-Frame component for rendering 3D text using troika-three-text that reads font files directly (ttf, otf, woff) | [Repo](https://github.com/lojjic/aframe-troika-text) | None | Maintained| 1.3.0 | a-text |
+| troika-text | An A-Frame component for rendering 3D text using troika-three-text that reads font files directly (ttf, otf, woff) | [Repo](https://github.com/lojjic/aframe-troika-text) | None | Maintained| 1.7.0 | a-text |
 | tube | Tube following a custom path, primitive and component. | [Repo](https://github.com/c-frame/aframe-extras/tree/master/src/primitives) | None | Maintained | 1.7.0 | |
 | ui-widgets | UI Widgets for A-Frame. | [Repo](https://github.com/caseyyee/aframe-ui-widgets) | [Example](https://caseyyee.github.io/aframe-ui-widgets/examples/) | Unknown| Unknown| |
 | unlock-video | unlock all videos so that they can play without user gesture if possible | [Repo](https://github.com/kylebakerio/a-ios-video-unlocker/blob/master/unlock-video.js) | N/A | 1.4.2 | maintained | |

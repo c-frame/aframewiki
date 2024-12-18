@@ -23,7 +23,7 @@ You can render the scene like this:
 ```js
 const Scene: Component<Props> = (props) => {
   onCleanup(() => {
-    // Remove class that was added by aframe, otherwise we can't scroll.
+    // Remove class that was added by aframe, otherwise we can't scroll. (not needed in aframe 1.7.0)
     document.querySelector("html").classList.remove("a-fullscreen");
   });
   return (

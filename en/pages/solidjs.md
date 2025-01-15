@@ -128,8 +128,13 @@ by
 
 ```js
 if (event === "click") {
-  // For SolidJS UI to work when onClick is a function and not a string
-  element.click();
+  // For SolidJS UI to work when onClick is a function and not a string,
+  // we need to call element.click(), a MouseEvent won't work.
+  // SolidJS may render new children synchronously if we call element.click()
+  // and a new button may be clicked if it appears at the same spot looking
+  // like we did a double click. So be sure to use a setTimeout here so the
+  // click event is triggered when we finished iterating over the DOM elements.
+  setTimeout(() => element.click(), 0);
 } else {
   element.dispatchEvent(new MouseEvent(event, mouseEventInit));
 }

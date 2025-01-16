@@ -24,6 +24,8 @@ The focus here is not on the original author's repo, but on the most up-to-date 
 
 [Superframe components](https://github.com/supermedium/superframe/)
 
+[XRSH components](https://github.com/c-frame/xrsh-com)
+
 Other community components mentioned in the [A-Frame docs](https://aframe.io/docs/master/introduction/#off-you-go) include:
 
 > [environment](https://github.com/supermedium/aframe-environment-component), [state](https://npmjs.com/package/aframe-state-component), [particle systems](https://github.com/c-frame/aframe-particle-system-component), [physics](https://github.com/c-frame/aframe-physics-system), [multiuser](https://github.com/networked-aframe/networked-aframe), [oceans](https://github.com/c-frame/aframe-extras/tree/master/src/primitives), [teleportation](https://github.com/fernandojsg/aframe-teleport-controls), [super hands](https://github.com/c-frame/aframe-super-hands-component), and [augmented reality](https://github.com/jeromeetienne/AR.js#augmented-reality-for-the-web-in-less-than-10-lines-of-html).

@@ -80,7 +80,7 @@ cameraRig.setAttribute("movement-controls", "enabled", false);
 
 ## Click on button with aframe-htmlmesh
 
-If you use [aframe-htmlmesh](https://github.com/AdaRoseCannon/aframe-htmlmesh), be aware this syntax doesn't work in VR:
+If you use [aframe-htmlmesh](https://github.com/AdaRoseCannon/aframe-htmlmesh), be aware this syntax doesn't work with SolidJS:
 
 ```js
 <button
@@ -115,8 +115,40 @@ or
 ```
 
 but if you introduce a variable in the template literal it becomes a function and won't work.
-I think SolidJS expect a PointerEvent and not a MouseEvent, something like that.
-I tried to emulate `pointerdown` followed by `pointerup` but it didn't work.
+
+I know SolidJS delegates pointer/touch/mouse/keyboard events and the transformed js has an hint about the click event being delegated.
+That js:
+
+```js
+const createUI = (uiEl: HTMLElement) => {
+  const root = document.createElement("div");
+  const id = "myui";
+  document.body.appendChild(root);
+  const dispose = render(() => <FaseVendingUI id={id} uiEl={uiEl} />, root);
+};
+```
+
+becomes
+
+```js
+const createUI = (uiEl) => {
+  const root = document.createElement("div");
+  const id = "myui";
+  document.body.appendChild(root);
+  const dispose = (0, web /* render */.XX)(
+    () =>
+      (0, solid /* createComponent */.a0)(UI, {
+        id: id,
+        uiEl: uiEl,
+      }),
+    root
+  );
+};
+(0, web /* delegateEvents */.z_)(["click"]);
+```
+
+so I guess the issue is related to that, but I don't really understand how that works.
+
 I found the following fix to work, but I'm not sure if it's a proper fix to contribute.
 You can replace [here](https://github.com/AdaRoseCannon/aframe-htmlmesh/blob/fcedc6d86dcafc122183d518984f45c972e7b154/src/HTMLMesh.js#L527)
 
@@ -140,4 +172,4 @@ if (event === "click") {
 }
 ```
 
-and the first syntax will work properly in VR.
+and the first syntax with a function like `onClick={() => { AFRAME.scenes[0].exitVR(); }}` will work properly.

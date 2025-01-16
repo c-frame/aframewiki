@@ -173,3 +173,63 @@ if (event === "click") {
 ```
 
 and the first syntax with a function like `onClick={() => { AFRAME.scenes[0].exitVR(); }}` will work properly.
+
+## Dynamically loading components
+
+That's a note about dynamically requiring components and dependencies with wepback.
+I have a single webpack/solidjs/tailwindcss project fully using ES modules for all my experiences.
+Each experience load a json file that declare the entities with their components to be used.
+When loading an experience, I'm doing a first pass on the json to gather used components,
+then if it's a component not currently registered, I'm loading them all in parallel asynchronously.
+That way I don't load the js of components I don't use in an experience.
+I found out by trying it, webpack is automatically creating a mapping of my components in the
+`./components/` directory so that's nice for security, it only allow those modules to be imported
+when you do something like this:
+
+```js
+async function loadComponent(componentName) {
+  try {
+    return await import(`./components/${componentName}.js`);
+  } catch (e) {
+    console.warn(`./components/${componentName}.js does not exist`);
+    return null;
+  }
+}
+```
+
+What it generates is the following:
+
+```js
+var map = {
+  "./environment.js": [4094],
+  "./flag-waving.js": [77214, 7214], // 7214 is three/addons/geometries/ParametricGeometry.js
+};
+function webpackAsyncContext(req) {
+  // fail right away if the component is not a whitelisted module
+  if (!__webpack_require__.o(map, req)) {
+    return Promise.resolve().then(() => {
+      var e = new Error("Cannot find module '" + req + "'");
+      e.code = "MODULE_NOT_FOUND";
+      throw e;
+    });
+  }
+
+  // load dependencies of the component in parallel and load the component
+  var ids = map[req],
+    id = ids[0];
+  return Promise.all(ids.slice(1).map(__webpack_require__.e)).then(() => {
+    return __webpack_require__(id);
+  });
+}
+webpackAsyncContext.keys = () => Object.keys(map);
+webpackAsyncContext.id = 23797;
+
+async function loadComponent(componentName) {
+  try {
+    return await __webpack_require__(23797)(`./${componentName}.js`); // __webpack_require__ will use the defined webpackAsyncContext above
+  } catch (e) {
+    console.warn(`./components/${componentName}.js does not exist`);
+    return null;
+  }
+}
+```

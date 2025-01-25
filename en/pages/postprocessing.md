@@ -7,8 +7,8 @@ Similar techniques will probably work for other postprocessing effects.
 Really old [aframe-effects](https://github.com/wizgrav/aframe-effects) is also available (and seeking a maintainer);
 
 Newer with a custom build of aframe 1.4.2 that has a threejs patch for postprocessing in VR: [Akbartus's A-Frame-Component-Postprocessing](https://github.com/akbartus/A-Frame-Component-Postprocessing)
-The threejs patch https://github.com/mrdoob/three.js/pull/26160 was merged and later reverted, so it's not included currently in three r172.
-See postprocessing VR issue that tracks VR support https://github.com/pmndrs/postprocessing/issues/677
+As of three r172, it sill requires those changes https://github.com/supermedium/three.js/pull/20
+See also postprocessing VR issue that tracks VR support https://github.com/pmndrs/postprocessing/issues/677
 
 See also [this discussion started in June 2018](https://github.com/aframevr/aframe/pull/3645) about introducing a postprocessing API in A-Frame.
 

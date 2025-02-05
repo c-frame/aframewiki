@@ -47,9 +47,14 @@ The htmlembed component is serializing the html to a string, create a svg with a
 # three-mesh-ui
 project link: https://github.com/felixmariotto/Three-Mesh-UI
 
-There is no aframe component but you can create your component that use this library.
+There is no aframe component but you can create your component that uses this library.
 
 [Project Flowerbed](https://developer.oculus.com/blog/project-flowerbed-a-webxr-case-study/) used this library to create the UI. The UI is written in json, see one of the files in the [GitHub repository](https://github.com/meta-quest/ProjectFlowerbed/tree/main/content/ui) and the [UIPanelComponent](https://github.com/meta-quest/ProjectFlowerbed/blob/main/src/js/components/UIPanelComponent.js) creates the three-mesh-ui objects from the json.
+
+# uikit
+project-link: https://github.com/pmndrs/uikit
+
+There is no aframe component but you sould be able to create one that uses this library.
 
 # websurfaces
 project link: https://github.com/ryota-mitarai/aframe-websurfaces

@@ -187,7 +187,7 @@ function Room() {
   return (
     <>
       <Scene model={model()} />
-      <div class="pointer-events-none absolute bottom-4 left-4 z-10 gap-2 [&>*]:pointer-events-auto">
+      <div class="pointer-events-none absolute bottom-4 left-4 z-10 flex gap-2 [&>*]:pointer-events-auto">
         <button
           onclick={() => {
             const el = document.querySelector("[environment]");
@@ -263,17 +263,16 @@ const Scene = (props: { model: string }) => {
   return (
     <Portal>
       <a-scene
-        networked-scene="
-          room: basic;
-          adapter: wseasyrtc;"
+        renderer="physicallyCorrectLights: true"
+        networked-scene="room: basic; adapter: wseasyrtc"
       >
         <a-entity id="cameraRig">
           <a-entity
             id="player"
-            networked="template:#avatar-template;attachTemplateToLocal:false;"
+            networked="template: #avatar-template; attachTemplateToLocal: false"
             camera
             position="0 1.6 0"
-            spawn-in-circle="radius:3"
+            spawn-in-circle="radius: 3"
             wasd-controls
             look-controls
           >
@@ -281,8 +280,8 @@ const Scene = (props: { model: string }) => {
           </a-entity>
         </a-entity>
 
-        <a-entity environment="preset:arches"></a-entity>
-        <a-entity light="type:ambient;intensity:1.0"></a-entity>
+        <a-entity environment="preset: arches"></a-entity>
+        <a-entity light="type: ambient; intensity: 1.0"></a-entity>
 
         <a-entity
           attr:gltf-model={props.model}
@@ -339,6 +338,8 @@ So just keep in `index.html` `<body>` the following:
 ```
 
 ## Typescript types for aframe
+
+FIXME: need to figure out how to make it work with the tsconfig included in the vite project.
 
 To avoid having errors in vscode, you can add an `aframe.d.ts` file in your project with the following content:
 

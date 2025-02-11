@@ -1,37 +1,292 @@
-# Use SolidJS with aframe
+# Using SolidJS with A-Frame
 
-The following are notes from Vincent Fretin.
+Author: Vincent Fretin.
+Last updated: 2025-02-11.
 
-You can use [SolidJS](https://www.solidjs.com) (without SolidStart/vite for now, so no SSR) with aframe and networked-aframe.
-You need to create `index.html` and put script tags (aframe and other components) and template tags (for networked-aframe) in it.
+You can create a [SolidJS](https://www.solidjs.com) SPA (Single Page Application) project with vite + typescript and add A-Frame and Networked-Aframe to it.
 
-See [naf-nametag-solidjs](https://github.com/networked-aframe/naf-nametag-solidjs) example.
+Create the project with the following commands:
 
-## Rendering the scene
+```sh
+npm create vite@latest my-aframe-solid-app -- --template solid-ts
+cd my-aframe-solid-app
+npm install
+npm install --save-dev @vitejs/plugin-basic-ssl tailwindcss @tailwindcss/vite prettier prettier-plugin-tailwindcss
+```
+
+Create `.prettierrc.json` file with the following content:
+
+```json
+{
+  "printWidth": 120,
+  "plugins": ["prettier-plugin-tailwindcss"],
+  "tailwindAttributes": ["classList"]
+}
+```
+
+Edit `vite.config.ts` to enable https, listening on your network interface and proxying to naf server:
+
+```js
+import { defineConfig } from "vite";
+import basicSsl from "@vitejs/plugin-basic-ssl";
+import solid from "vite-plugin-solid";
+import tailwindcss from "@tailwindcss/vite";
+
+export default defineConfig({
+  server: {
+    host: "0.0.0.0",
+    proxy: {
+      "/socket.io": {
+        target: "http://127.0.0.1:8080/socket.io",
+        changeOrigin: true,
+        ws: true,
+      },
+    },
+  },
+  plugins: [basicSsl(), tailwindcss(), solid()],
+});
+```
+
+See https://vite.dev/guide/ and https://tailwindcss.com for more information.
+
+Then include A-Frame script tag and other components you need in the `index.html` file. The easiest way is to grab the content of the `index.html` file of the [naf-project](https://glitch.com/edit/#!/naf-project) glitch and paste it in the `index.html` file of your project and put back the two lines before `</body>`:
+
+```html
+<div id="root"></div>
+<script type="module" src="/src/index.tsx"></script>
+```
+
+and replace
+
+```html
+<script src="/easyrtc/easyrtc.js"></script>
+```
+
+by
+
+```html
+<script src="https://unpkg.com/open-easyrtc@2.1.0/api/easyrtc.js"></script>
+```
+
+Also remove `import "./App.css";` in `App.tsx` and remove the `App.css` file.
+Replace the content of `index.css` by:
+
+```css
+@import "tailwindcss";
+```
+
+in `App.tsx` add a button for example:
+
+```js
+function App() {
+  return (
+    <>
+      <div class="pointer-events-none absolute bottom-4 left-4 z-10 gap-2 [&>*]:pointer-events-auto">
+        <button
+          onclick={() => {
+            const el = document.querySelector("[environment]");
+            if (!el) return;
+            // @ts-ignore
+            if (el.getAttribute("environment").preset === "forest") {
+              el.setAttribute("environment", "preset: arches");
+            } else {
+              el.setAttribute("environment", "preset: forest");
+            }
+          }}
+          class="cursor-pointer rounded-xl border-4 border-black/80 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
+        >
+          Change environment
+        </button>
+      </div>
+    </>
+  );
+}
+export default App;
+```
+
+Add the networked-aframe server:
+
+```sh
+npm install networked-aframe
+npm install --save-dev concurrently
+```
+
+Grab the content of `server.js` from glitch and put it in your project in a `server.cjs` file at the root. Note the cjs extension here needed because we're in a ESM node project declared with the `"type": "module"` in `package.json` file and the server code is in CommonJS format.
+You also need to change `app.use(express.static("public"));` by `app.use(express.static("dist"));` in the `server.cjs` file that will be used when run with `npm start`, that's also what is used with hosting service like glitch.
+
+Create public/js directory and put the content of `public/js/spawn-in-circle.component.js` from glitch in it.
+
+Modify the `package.json` scripts:
+
+```json
+"start": "node server.cjs",
+"dev": "concurrently vite \"node server.cjs\"",
+```
+
+For development, run
+
+```sh
+npm run dev
+```
+
+For production, run
+
+```sh
+npm run build
+```
+
+and test if all is working with
+
+```sh
+npm start
+```
+
+To deploy to a production server, you need to deploy the `dist` folder
+and run `pm2 start server.js` for example with nginx in front plus certbot to create a letsencrypt certificate.
+See https://github.com/networked-aframe/networked-aframe/issues/244 for more details.
+
+See [naf-valid-avatars](https://github.com/networked-aframe/naf-valid-avatars) as an example of an UI for networked-aframe written with SolidJS.
+
+I advice not to use [SolidStart](https://start.solidjs.com/) even with CSR (Client-side rendering as known as SPA with `{ ssr: false }`) because you don't have access to the `index.html` file so making hard to add scripts tags and template tags (for networked-aframe) and following other A-Frame examples.
+
+## Rendering the scene via a SolidJS component (advanced)
 
 You can go further and use [Solid router](https://github.com/solidjs/solid-router) and render your scene with a SolidJS component on a specific route.
 The only gotcha is to use `attr:` on your components for them to be reactive. This applies to any web components, see the [mention in SolidJS documentation](https://www.solidjs.com/docs/latest/api#attr___).
 
-You can render the scene like this:
-
-```js
-<Scene scene={scene()} />
+```sh
+npm install @solidjs/router @solidjs/meta
 ```
 
-`scene()` is a signal that is an object with sceneName and other things specific to my app.
+`pages/Home.tsx`:
 
 ```js
-const Scene: Component<Props> = (props) => {
+import { A } from "@solidjs/router";
+
+function Home() {
+  return (
+    <main class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#ef2d5e] text-white">
+      <h1 class="text-3xl">Hello A-Frame!</h1>
+      <A href="/room" class="underline">
+        Go to room
+      </A>
+    </main>
+  );
+}
+export default Home;
+```
+
+`pages/Room.tsx`:
+
+```js
+import { createSignal } from "solid-js";
+import { Scene } from "../Scene";
+
+function Room() {
+  const [model, setModel] = createSignal("my-model.glb");
+  return (
+    <>
+      <Scene model={model()} />
+      <div class="pointer-events-none absolute bottom-4 left-4 z-10 gap-2 [&>*]:pointer-events-auto">
+        <button
+          onclick={() => {
+            const el = document.querySelector("[environment]");
+            if (!el) return;
+            // @ts-ignore
+            if (el.getAttribute("environment").preset === "forest") {
+              el.setAttribute("environment", "preset: arches");
+            } else {
+              el.setAttribute("environment", "preset: forest");
+            }
+          }}
+          class="cursor-pointer rounded-xl border-4 border-black/80 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
+        >
+          Change environment
+        </button>
+        <button
+          onclick={() => setModel("my-other-model.glb")}
+          class="cursor-pointer rounded-xl border-4 border-black/80 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
+        >
+          Change model
+        </button>
+      </div>
+    </>
+  );
+}
+
+export default Room;
+```
+
+`App.tsx`:
+
+```js
+import { MetaProvider, Title } from "@solidjs/meta";
+import { Router, Route } from "@solidjs/router";
+import { lazy } from "solid-js";
+
+const Home = lazy(() => import("./pages/Home"));
+const Room = lazy(() => import("./pages/Room"));
+
+function App() {
+  return (
+    <MetaProvider>
+      <Router
+        root={(props) => {
+          return (
+            <>
+              <Title>My A-Frame project</Title>
+              {props.children}
+            </>
+          );
+        }}
+      >
+        <Route path="/" component={Home} />
+        <Route path="/room" component={Room} />;
+      </Router>
+    </MetaProvider>
+  );
+}
+export default App;
+```
+
+`Scene.tsx`:
+
+```js
+import { onCleanup } from "solid-js";
+import { Portal } from "solid-js/web";
+
+const Scene = (props: { model: string }) => {
   onCleanup(() => {
-    // Remove class that was added by aframe, otherwise we can't scroll. (not needed in aframe 1.7.0)
+    // Remove class that was added by aframe, otherwise we can't scroll when we go back to a non- A-Frame page. (not needed in aframe 1.7.0)
     document.querySelector("html").classList.remove("a-fullscreen");
   });
   return (
     <Portal>
-      <a-scene>
+      <a-scene
+        networked-scene="
+          room: basic;
+          adapter: wseasyrtc;"
+      >
+        <a-entity id="cameraRig">
+          <a-entity
+            id="player"
+            networked="template:#avatar-template;attachTemplateToLocal:false;"
+            camera
+            position="0 1.6 0"
+            spawn-in-circle="radius:3"
+            wasd-controls
+            look-controls
+          >
+            <a-sphere class="head" visible="false" random-color></a-sphere>
+          </a-entity>
+        </a-entity>
+
+        <a-entity environment="preset:arches"></a-entity>
+        <a-entity light="type:ambient;intensity:1.0"></a-entity>
+
         <a-entity
-          attr:scene-switcher={props.scene.sceneName}
-          shadow="cast:true;receive:true;"
+          attr:gltf-model={props.model}
+          shadow="cast: true; receive: true"
         ></a-entity>
       </a-scene>
     </Portal>
@@ -39,8 +294,49 @@ const Scene: Component<Props> = (props) => {
 };
 ```
 
-I'm still using webpack with SolidJS, no ssr.
-I'm trying to convert my project to SolidStart so to vite, but I struggle to import dynamically my scripts and add template tags for naf. (2023-04-13)
+Remove `<title>` and `<a-scene>` tags in `index.html`, keep the `<template>` tags.
+So just keep in `index.html` `<body>` the following:
+
+```html
+<body>
+  <template id="avatar-template">
+    <a-entity class="avatar">
+      <a-sphere class="head" scale="0.45 0.5 0.4"></a-sphere>
+      <a-entity class="face" position="0 0.05 0">
+        <a-sphere
+          class="eye"
+          color="#efefef"
+          position="0.16 0.1 -0.35"
+          scale="0.12 0.12 0.12"
+        >
+          <a-sphere
+            class="pupil"
+            color="#000"
+            position="0 0 -1"
+            scale="0.2 0.2 0.2"
+          ></a-sphere>
+        </a-sphere>
+        <a-sphere
+          class="eye"
+          color="#efefef"
+          position="-0.16 0.1 -0.35"
+          scale="0.12 0.12 0.12"
+        >
+          <a-sphere
+            class="pupil"
+            color="#000"
+            position="0 0 -1"
+            scale="0.2 0.2 0.2"
+          ></a-sphere>
+        </a-sphere>
+      </a-entity>
+    </a-entity>
+  </template>
+
+  <div id="root"></div>
+  <script type="module" src="/src/index.tsx"></script>
+</body>
+```
 
 ## Typescript types for aframe
 
@@ -67,7 +363,7 @@ declare module "solid-js" {
 You can also install `@types/aframe` to have some types:
 
 ```
-npm install -D @types/aframe
+npm install --save-dev @types/aframe
 ```
 
 Example:
@@ -174,7 +470,7 @@ if (event === "click") {
 
 and the first syntax with a function like `onClick={() => { AFRAME.scenes[0].exitVR(); }}` will work properly.
 
-## Dynamically loading components
+## Dynamically loading components (webpack)
 
 That's a note about dynamically requiring components and dependencies with wepback.
 I have a single webpack/solidjs/tailwindcss project fully using ES modules for all my experiences.

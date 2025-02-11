@@ -3,6 +3,8 @@
 Author: Vincent Fretin.
 Last updated: 2025-02-11.
 
+The final code of this tutorial is available at https://github.com/vincentfretin/my-aframe-solid-app
+
 You can create a [SolidJS](https://www.solidjs.com) SPA (Single Page Application) project with vite + typescript and add A-Frame and Networked-Aframe to it.
 
 Create the project with the following commands:

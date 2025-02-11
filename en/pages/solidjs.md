@@ -124,7 +124,7 @@ const createUI = (uiEl: HTMLElement) => {
   const root = document.createElement("div");
   const id = "myui";
   document.body.appendChild(root);
-  const dispose = render(() => <FaseVendingUI id={id} uiEl={uiEl} />, root);
+  const dispose = render(() => <UI id={id} uiEl={uiEl} />, root);
 };
 ```
 

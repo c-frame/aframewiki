@@ -250,7 +250,7 @@ import { primitive } from "./signals";
 
 export function Scene() {
   onMount(() => {
-    // Because a-scene is a div, we need this additional style otherwise the VR button is not visible.
+    // Because a-scene is in a div, we need this additional style otherwise the VR button is not visible.
     document
       .querySelector("#root")
       .setAttribute("style", "position: absolute; inset: 0;");

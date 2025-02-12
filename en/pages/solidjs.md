@@ -1,12 +1,19 @@
 # Using SolidJS with A-Frame
 
-Author: Vincent Fretin.
-Last updated: 2025-02-11.
+Author: Vincent Fretin
+Last updated: Feb 2025
 
-The final code of this tutorial is available at https://github.com/vincentfretin/my-aframe-solid-app
+The final code of this tutorial from the advanced section is available at https://github.com/vincentfretin/my-aframe-solid-app
+and deployed on Glitch at https://my-aframe-solid-app.glitch.me
 
-You can create a [SolidJS](https://www.solidjs.com) SPA (Single Page Application) project with vite and add A-Frame and Networked-Aframe to it.
-Those instructions are opinionated to use typescript, tailwindcss 4 and prettier.
+You can read the [version rendered on GitHub](https://github.com/c-frame/aframewiki/blob/gh-pages/en/pages/solidjs.md)
+to easily copy the code snippets.
+
+## Create a new Vite project with SolidJS
+
+You can create a [SolidJS](https://www.solidjs.com) SPA (Single Page Application) project with the Vite build tool
+and add A-Frame and Networked-Aframe to it.
+This tutorial is opinionated to use typescript, tailwindcss 4 as the styling solution and prettier for formatting.
 
 Create the project with the following commands:
 
@@ -17,6 +24,8 @@ npm install
 npm install --save-dev @vitejs/plugin-basic-ssl tailwindcss @tailwindcss/vite prettier prettier-plugin-tailwindcss
 ```
 
+The above commands are the same as found on the [Vite Guide](https://vite.dev/guide/) plus adding the basic-ssl vite plugin to create a self-signed certificate for development, adding tailwindcss integration as described in [tailwindcss site](https://tailwindcss.com), prettier with tailwindcss plugin to format the js/html code and tailwindcss classes.
+
 Create `.prettierrc.json` file with the following content:
 
 ```json
@@ -26,6 +35,8 @@ Create `.prettierrc.json` file with the following content:
   "tailwindAttributes": ["classList"]
 }
 ```
+
+`classList` is a special attribute in SolidJS, that's equivalent to using the classnames or clsx library in React.
 
 Edit `vite.config.ts` to enable https, listening on your network interface and proxying to naf server:
 
@@ -50,7 +61,19 @@ export default defineConfig({
 });
 ```
 
-See https://vite.dev/guide/ and https://tailwindcss.com for more information.
+Remove `import "./App.css";` in `App.tsx` and remove the `App.css` file.
+Replace the content of `index.css` by:
+
+```css
+@import "tailwindcss";
+```
+
+Accessing the microphone or using WebGPURenderer require a secure context, that can be localhost on http, but needs to be https on the network interface.
+Listening on all network interfaces (host: "0.0.0.0") is needed if you want to access your project from your headset on your local network. You can easily share a link between your machine and your headset with the https://hmd.link service.
+
+I advice not to use [SolidStart](https://start.solidjs.com/) even with CSR (Client-side rendering as known as SPA with `{ ssr: false }`) because you don't have access to the `index.html` file so making hard to add scripts tags and template tags (for networked-aframe) and following other A-Frame examples.
+
+## Add A-Frame and Networked-Aframe to the project
 
 Then include A-Frame script tag and other components you need in the `index.html` file. The easiest way is to grab the content of the `index.html` file of the [naf-project](https://glitch.com/edit/#!/naf-project) glitch and paste it in the `index.html` file of your project and put back the two lines before `</body>`:
 
@@ -71,14 +94,60 @@ by
 <script src="https://unpkg.com/open-easyrtc@2.1.0/api/easyrtc.js"></script>
 ```
 
-Also remove `import "./App.css";` in `App.tsx` and remove the `App.css` file.
-Replace the content of `index.css` by:
+The previous `/easyrtc/easyrtc.js` got the easyrtc library from an express route defined by the open-easyrtc library. Here here we actually have two servers, the vite dev server on port 5173 and the easyrtc server on port 8080. To avoid adding complexity of proxying also this route, we directly use the easyrtc library from a CDN. Only the /socket.io route needs to be proxied like we did in the previous section.
 
-```css
-@import "tailwindcss";
+Add the networked-aframe server:
+
+```sh
+npm install networked-aframe
+npm install --save-dev concurrently
 ```
 
-in `App.tsx` add a button for example:
+Grab the content of `server.js` from glitch and put it in your project in a `server.cjs` file at the root. Note the cjs extension here needed because we're in a ESM node project declared with the `"type": "module"` in `package.json` file and the server code is in CommonJS format.
+You also need to change `app.use(express.static("public"));` by `app.use(express.static("dist"));` in the `server.cjs` file that will be used when run with `npm start`, that's also what is used with hosting service like glitch.
+
+Create public/js directory and put the content of `public/js/spawn-in-circle.component.js` from glitch in it.
+
+Modify the `package.json` scripts:
+
+```json
+"start": "node server.cjs",
+"dev": "concurrently vite \"node server.cjs\"",
+```
+
+The start will be used by Glitch hosting service to start the easyrtc server.
+For the dev command, we use the cross-platform concurrently package to run both the vite dev server and the easyrtc server.
+
+For development, run
+
+```sh
+npm run dev
+```
+
+For production, run
+
+```sh
+npm run build
+```
+
+that will create the `dist` folder with the production build.
+
+The test if all is working with
+
+```sh
+npm start
+```
+
+To deploy to Glitch, see next section.
+
+To deploy to a server instance (EC2 instance, DO droplet, VPS), you need to deploy the `dist` folder
+and run `pm2 start server.js` for example with nginx in front plus certbot to create a letsencrypt certificate.
+See https://github.com/networked-aframe/networked-aframe/issues/244 for more details.
+
+## Adding a button to control the environment
+
+We'll add a button on the bottom left to toggle the environment between `forest` and `arches`.
+In `App.tsx`, replace all the content by:
 
 ```js
 function App() {
@@ -107,52 +176,7 @@ function App() {
 export default App;
 ```
 
-Add the networked-aframe server:
-
-```sh
-npm install networked-aframe
-npm install --save-dev concurrently
-```
-
-Grab the content of `server.js` from glitch and put it in your project in a `server.cjs` file at the root. Note the cjs extension here needed because we're in a ESM node project declared with the `"type": "module"` in `package.json` file and the server code is in CommonJS format.
-You also need to change `app.use(express.static("public"));` by `app.use(express.static("dist"));` in the `server.cjs` file that will be used when run with `npm start`, that's also what is used with hosting service like glitch.
-
-Create public/js directory and put the content of `public/js/spawn-in-circle.component.js` from glitch in it.
-
-Modify the `package.json` scripts:
-
-```json
-"start": "node server.cjs",
-"dev": "concurrently vite \"node server.cjs\"",
-```
-
-For development, run
-
-```sh
-npm run dev
-```
-
-For production, run
-
-```sh
-npm run build
-```
-
-and test if all is working with
-
-```sh
-npm start
-```
-
-To deploy to Glitch, see next section.
-
-To deploy to a production server, you need to deploy the `dist` folder
-and run `pm2 start server.js` for example with nginx in front plus certbot to create a letsencrypt certificate.
-See https://github.com/networked-aframe/networked-aframe/issues/244 for more details.
-
-See [naf-valid-avatars](https://github.com/networked-aframe/naf-valid-avatars) as an example of an UI for networked-aframe written with SolidJS.
-
-I advice not to use [SolidStart](https://start.solidjs.com/) even with CSR (Client-side rendering as known as SPA with `{ ssr: false }`) because you don't have access to the `index.html` file so making hard to add scripts tags and template tags (for networked-aframe) and following other A-Frame examples.
+See [naf-valid-avatars](https://github.com/networked-aframe/naf-valid-avatars) repository for an example of full UI with microphone and chat buttons for networked-aframe written with SolidJS. That repository is using webpack and the previous version of tailwindcss (v3 with postcss).
 
 ## Deploy to Glitch
 
@@ -172,9 +196,9 @@ Add to `package.json` just before the ending `}`:
 }
 ```
 
-and remove dist from the `.gitignore` file.
+and remove `dist` from the `.gitignore` file.
 
-Create your repo on GitHub and follow the instructions there. Mainly:
+Create your repo on GitHub and follow the instructions there. Mainly execute:
 
 ```sh
 git init
@@ -206,15 +230,20 @@ git reset --hard github/main
 refresh
 ```
 
-It's deployed!
+The `refresh` command will refresh the Glitch editor interface and will start to execute `npm install` and `npm start`.
+You can follow the progress by clicking on the Logs tab.
+
+The application is deployed!
 
 ## Rendering the scene via a SolidJS component (advanced)
 
-You can go further and use [Solid router](https://github.com/solidjs/solid-router) and render your scene with a SolidJS component on a specific route.
-You can also use SolidJS signals to update some components of your scene.
-The only gotcha is to use `attr:` on your components for them to be reactive. This applies to any web components, see the [mention in SolidJS documentation](https://www.solidjs.com/docs/latest/api#attr___).
+We can go further and use [Solid router](https://github.com/solidjs/solid-router) and render the scene with a SolidJS component on a specific route.
 
-Add the SolidJS router library and meta library that will handle the title tag:
+We'll also use a SolidJS signal to update some component of the scene.
+
+We'll add a home page, with a link to the room page that renders the scene. Next to the `Change environment` button we previously had, we'll add two other buttons `sphere` and `box` to show an example of using a SoliJS signal to update a component on an entity.
+
+Add the SolidJS router library and the meta library that will handle the `<title>` tag:
 
 ```sh
 npm install @solidjs/router @solidjs/meta
@@ -280,6 +309,8 @@ import { createSignal } from "solid-js";
 export const [primitive, setPrimitive] = createSignal("box");
 ```
 
+We'll import that signal in both the UI and the Scene components.
+
 `pages/Room.tsx`:
 
 ```js
@@ -297,6 +328,8 @@ function Room() {
 
 export default Room;
 ```
+
+Having all the UI in a separate component is needed for the hot reloading to work properly, only reloading the `UI.tsx` file if you change it and it will keep the scene as is.
 
 `Scene.tsx`:
 
@@ -360,6 +393,16 @@ export function Scene() {
 }
 ```
 
+The only dynamic part of the scene above is:
+
+```js
+attr:geometry={`primitive: ${primitive()}`}
+```
+
+The gotcha is to use `attr:` on your components for them to be reactive. This applies to any web components, see the [mention in SolidJS documentation](https://www.solidjs.com/docs/latest/api#attr___).
+
+This will set `geometry="primitive: box"` or `geometry="primitive: sphere"` depending on the value of the `primitive()` signal.
+
 `UI.tsx`:
 
 ```js
@@ -402,6 +445,8 @@ export function UI() {
   );
 }
 ```
+
+The above code is using a For loop to render the `sphere` and `box` buttons.
 
 Remove `<title>` and `<a-scene>` tags in `index.html`, keep the `<template>` tags.
 So just keep in `index.html` `<body>` the following:
@@ -446,6 +491,8 @@ So just keep in `index.html` `<body>` the following:
   <script type="module" src="/src/index.tsx"></script>
 </body>
 ```
+
+Test now the example.
 
 ## Typescript types for aframe
 

@@ -94,7 +94,7 @@ by
 <script src="https://unpkg.com/open-easyrtc@2.1.0/api/easyrtc.js"></script>
 ```
 
-The previous `/easyrtc/easyrtc.js` got the easyrtc library from an express route defined by the open-easyrtc library. Here here we actually have two servers, the vite dev server on port 5173 and the easyrtc server on port 8080. To avoid adding complexity of proxying also this route, we directly use the easyrtc library from a CDN. Only the /socket.io route needs to be proxied like we did in the previous section.
+The previous `/easyrtc/easyrtc.js` got the easyrtc library from an express route defined by the open-easyrtc library. Here we actually have two servers, the vite dev server on port 5173 and the easyrtc server on port 8080. To avoid adding complexity of proxying also this route, we directly use the easyrtc library from a CDN. Only the /socket.io route needs to be proxied like we did in the previous section.
 
 Add the networked-aframe server:
 
@@ -103,7 +103,7 @@ npm install networked-aframe
 npm install --save-dev concurrently
 ```
 
-Grab the content of `server.js` from glitch and put it in your project in a `server.cjs` file at the root. Note the cjs extension here needed because we're in a ESM node project declared with the `"type": "module"` in `package.json` file and the server code is in CommonJS format.
+Grab the content of `server.js` from glitch and put it in your project in a `server.cjs` file at the root. Note the cjs extension here is needed because we're in a ESM node project declared with the `"type": "module"` in `package.json` file and the server code is in CommonJS format.
 You also need to change `app.use(express.static("public"));` by `app.use(express.static("dist"));` in the `server.cjs` file that will be used when run with `npm start`, that's also what is used with hosting service like glitch.
 
 Create public/js directory and put the content of `public/js/spawn-in-circle.component.js` from glitch in it.
@@ -115,8 +115,8 @@ Modify the `package.json` scripts:
 "dev": "concurrently vite \"node server.cjs\"",
 ```
 
-The start will be used by Glitch hosting service to start the easyrtc server.
-For the dev command, we use the cross-platform concurrently package to run both the vite dev server and the easyrtc server.
+The `start` command will be used by Glitch hosting service to start the easyrtc server.
+For the `dev` command, we use the cross-platform concurrently package to run both the vite dev server and the easyrtc server.
 
 For development, run
 
@@ -132,7 +132,7 @@ npm run build
 
 that will create the `dist` folder with the production build.
 
-The test if all is working with
+Then test if all is working properly with
 
 ```sh
 npm start
@@ -238,8 +238,6 @@ The application is deployed!
 ## Rendering the scene via a SolidJS component (advanced)
 
 We can go further and use [Solid router](https://github.com/solidjs/solid-router) and render the scene with a SolidJS component on a specific route.
-
-We'll also use a SolidJS signal to update some component of the scene.
 
 We'll add a home page, with a link to the room page that renders the scene. Next to the `Change environment` button we previously had, we'll add two other buttons `sphere` and `box` to show an example of using a SoliJS signal to update a component on an entity.
 
@@ -376,7 +374,7 @@ export function Scene() {
           networked="template: #avatar-template; attachTemplateToLocal: false;"
           camera
           position="0 1.6 0"
-          spawn-in-circle="radius:3"
+          spawn-in-circle="radius: 3"
           wasd-controls
           look-controls
         >
@@ -492,7 +490,8 @@ So just keep in `index.html` `<body>` the following:
 </body>
 ```
 
-Test now the example.
+Test now the example. That ends the tutorial.
+The below sections are some notes you may find useful.
 
 ## Typescript types for aframe
 

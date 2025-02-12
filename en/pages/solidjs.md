@@ -144,6 +144,8 @@ and test if all is working with
 npm start
 ```
 
+To deploy to Glitch, see next section.
+
 To deploy to a production server, you need to deploy the `dist` folder
 and run `pm2 start server.js` for example with nginx in front plus certbot to create a letsencrypt certificate.
 See https://github.com/networked-aframe/networked-aframe/issues/244 for more details.
@@ -151,6 +153,60 @@ See https://github.com/networked-aframe/networked-aframe/issues/244 for more det
 See [naf-valid-avatars](https://github.com/networked-aframe/naf-valid-avatars) as an example of an UI for networked-aframe written with SolidJS.
 
 I advice not to use [SolidStart](https://start.solidjs.com/) even with CSR (Client-side rendering as known as SPA with `{ ssr: false }`) because you don't have access to the `index.html` file so making hard to add scripts tags and template tags (for networked-aframe) and following other A-Frame examples.
+
+## Deploy to Glitch
+
+Deploying to Glitch requires to type some commands.
+
+Note that Glitch only supports NodeJS 16 (in Feb 2025) and Vite 6 requires minimum NodeJS 18 so you can't run `npm run build` in the Glitch Console.
+
+Create a new Glitch project with the template glitch-hello-website, edit the subdomain in Settings with a name you want.
+
+On your machine in your project, set up a git repo:
+
+Add to `package.json` just before the ending `}`:
+
+```js
+"engines": {
+  "node": ">=16"
+}
+```
+
+and remove dist from the `.gitignore` file.
+
+Create your repo on GitHub and follow the instructions there. Mainly:
+
+```sh
+git init
+git add .
+git commit -m"first commit"
+git branch -M main
+git remote add origin <your github ssh url>
+git push -u origin main
+```
+
+The above steps are only needed once, you can skip them for the next time you want to deploy.
+
+From your machine, create a build and push:
+
+```sh
+git rm -rf dist
+npm run build
+git add dist
+git commit -m"build dist"
+git push
+```
+
+Open the Glitch Console and type:
+
+```sh
+git remote add github <your github https url>
+git fetch github
+git reset --hard github/main
+refresh
+```
+
+It's deployed!
 
 ## Rendering the scene via a SolidJS component (advanced)
 

@@ -1,6 +1,6 @@
 # Using SolidJS with A-Frame
 
-Author: Vincent Fretin
+Author: [Vincent Fretin](https://github.com/sponsors/vincentfretin)
 Last updated: Feb 2025
 
 The final code of this tutorial from the advanced section is available at https://github.com/vincentfretin/my-aframe-solid-app
@@ -363,6 +363,7 @@ export function Scene() {
   });
   return (
     <a-scene
+      inspector="url: https://cdn.jsdelivr.net/gh/c-frame/aframe-editor@1.7.x/dist/aframe-editor.min.js"
       renderer="physicallyCorrectLights: true;"
       networked-scene="
           room: basic;
@@ -490,7 +491,10 @@ So just keep in `index.html` `<body>` the following:
 </body>
 ```
 
-Test now the example. That ends the tutorial.
+Test now the example.
+You can open the A-Frame inspector with `<ctrl> + <alt> + i` (actually we use here the [A-Frame editor](https://github.com/c-frame/aframe-editor) that adds some features) to verify what is set on the environment and geometry components.
+
+That ends the tutorial.
 The below sections are some notes you may find useful.
 
 ## Typescript types for aframe

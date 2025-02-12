@@ -5,7 +5,8 @@ Last updated: 2025-02-11.
 
 The final code of this tutorial is available at https://github.com/vincentfretin/my-aframe-solid-app
 
-You can create a [SolidJS](https://www.solidjs.com) SPA (Single Page Application) project with vite + typescript and add A-Frame and Networked-Aframe to it.
+You can create a [SolidJS](https://www.solidjs.com) SPA (Single Page Application) project with vite and add A-Frame and Networked-Aframe to it.
+Those instructions are opinionated to use typescript, tailwindcss 4 and prettier.
 
 Create the project with the following commands:
 
@@ -154,70 +155,16 @@ I advice not to use [SolidStart](https://start.solidjs.com/) even with CSR (Clie
 ## Rendering the scene via a SolidJS component (advanced)
 
 You can go further and use [Solid router](https://github.com/solidjs/solid-router) and render your scene with a SolidJS component on a specific route.
+You can also use SolidJS signals to update some components of your scene.
 The only gotcha is to use `attr:` on your components for them to be reactive. This applies to any web components, see the [mention in SolidJS documentation](https://www.solidjs.com/docs/latest/api#attr___).
+
+Add the SolidJS router library and meta library that will handle the title tag:
 
 ```sh
 npm install @solidjs/router @solidjs/meta
 ```
 
-`pages/Home.tsx`:
-
-```js
-import { A } from "@solidjs/router";
-
-function Home() {
-  return (
-    <main class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#ef2d5e] text-white">
-      <h1 class="text-3xl">Hello A-Frame!</h1>
-      <A href="/room" class="underline">
-        Go to room
-      </A>
-    </main>
-  );
-}
-export default Home;
-```
-
-`pages/Room.tsx`:
-
-```js
-import { createSignal } from "solid-js";
-import { Scene } from "../Scene";
-
-function Room() {
-  const [model, setModel] = createSignal("my-model.glb");
-  return (
-    <>
-      <Scene model={model()} />
-      <div class="pointer-events-none absolute bottom-4 left-4 z-10 flex gap-2 [&>*]:pointer-events-auto">
-        <button
-          onclick={() => {
-            const el = document.querySelector("[environment]");
-            if (!el) return;
-            // @ts-ignore
-            if (el.getAttribute("environment").preset === "forest") {
-              el.setAttribute("environment", "preset: arches");
-            } else {
-              el.setAttribute("environment", "preset: forest");
-            }
-          }}
-          class="cursor-pointer rounded-xl border-4 border-black/80 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
-        >
-          Change environment
-        </button>
-        <button
-          onclick={() => setModel("my-other-model.glb")}
-          class="cursor-pointer rounded-xl border-4 border-black/80 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
-        >
-          Change model
-        </button>
-      </div>
-    </>
-  );
-}
-
-export default Room;
-```
+Create or modify all the following files in the `src` directory.
 
 `App.tsx`:
 
@@ -251,48 +198,142 @@ function App() {
 export default App;
 ```
 
+`pages/Home.tsx`:
+
+```js
+import { A } from "@solidjs/router";
+
+function Home() {
+  return (
+    <main class="absolute inset-0 flex flex-col items-center justify-center gap-4 bg-[#ef2d5e] text-white">
+      <h1 class="text-3xl">Hello A-Frame!</h1>
+      <A href="/room" class="underline">
+        Go to room
+      </A>
+    </main>
+  );
+}
+export default Home;
+```
+
+`signals.tsx`:
+
+```js
+import { createSignal } from "solid-js";
+
+export const [primitive, setPrimitive] = createSignal("box");
+```
+
+`pages/Room.tsx`:
+
+```js
+import { Scene } from "../Scene";
+import { UI } from "../UI";
+
+function Room() {
+  return (
+    <>
+      <Scene />
+      <UI />
+    </>
+  );
+}
+
+export default Room;
+```
+
 `Scene.tsx`:
 
 ```js
-import { onCleanup } from "solid-js";
-import { Portal } from "solid-js/web";
+import { onCleanup, onMount } from "solid-js";
+import { primitive } from "./signals";
 
-const Scene = (props: { model: string }) => {
+export function Scene() {
+  onMount(() => {
+    // Because a-scene is a div, we need this additional style otherwise the VR button is not visible.
+    document
+      .querySelector("#root")
+      .setAttribute("style", "position: absolute; inset: 0;");
+  });
   onCleanup(() => {
+    document.querySelector("#root").removeAttribute("style");
     // Remove class that was added by aframe, otherwise we can't scroll when we go back to a non- A-Frame page. (not needed in aframe 1.7.0)
     document.querySelector("html").classList.remove("a-fullscreen");
   });
   return (
-    <Portal>
-      <a-scene
-        renderer="physicallyCorrectLights: true"
-        networked-scene="room: basic; adapter: wseasyrtc"
-      >
-        <a-entity id="cameraRig">
-          <a-entity
-            id="player"
-            networked="template: #avatar-template; attachTemplateToLocal: false"
-            camera
-            position="0 1.6 0"
-            spawn-in-circle="radius: 3"
-            wasd-controls
-            look-controls
-          >
-            <a-sphere class="head" visible="false" random-color></a-sphere>
-          </a-entity>
-        </a-entity>
-
-        <a-entity environment="preset: arches"></a-entity>
-        <a-entity light="type: ambient; intensity: 1.0"></a-entity>
-
+    <a-scene
+      renderer="physicallyCorrectLights: true;"
+      networked-scene="
+          room: basic;
+          adapter: wseasyrtc;"
+    >
+      <a-entity id="cameraRig">
         <a-entity
-          attr:gltf-model={props.model}
-          shadow="cast: true; receive: true"
-        ></a-entity>
-      </a-scene>
-    </Portal>
+          id="player"
+          networked="template: #avatar-template; attachTemplateToLocal: false;"
+          camera
+          position="0 1.6 0"
+          spawn-in-circle="radius:3"
+          wasd-controls
+          look-controls
+        >
+          <a-sphere class="head" visible="false" random-color></a-sphere>
+        </a-entity>
+      </a-entity>
+
+      <a-entity environment="preset: arches"></a-entity>
+      <a-entity light="type: ambient; intensity: 1.0"></a-entity>
+
+      <a-entity
+        attr:geometry={`primitive: ${primitive()}`}
+        position="0 2 0"
+      ></a-entity>
+    </a-scene>
   );
-};
+}
+```
+
+`UI.tsx`:
+
+```js
+import { For } from "solid-js";
+import { primitive, setPrimitive } from "./signals";
+
+export function UI() {
+  return (
+    <div class="pointer-events-none absolute bottom-4 left-4 z-10 flex gap-2 [&>*]:pointer-events-auto">
+      <button
+        onclick={() => {
+          const el = document.querySelector("[environment]");
+          if (!el) return;
+          // @ts-ignore
+          if (el.getAttribute("environment").preset === "forest") {
+            el.setAttribute("environment", "preset: arches");
+          } else {
+            el.setAttribute("environment", "preset: forest");
+          }
+        }}
+        class="cursor-pointer rounded-xl border-4 border-black/80 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
+      >
+        Change environment
+      </button>
+      <For each={["sphere", "box"]}>
+        {(choice) => (
+          <button
+            onclick={() => setPrimitive(choice)}
+            class="cursor-pointer rounded-xl border-4 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
+            classList={{
+              "border-[#ef2d5e]": primitive() === choice,
+              "border-black/80": primitive() !== choice,
+            }}
+          >
+            {choice}
+          </button>
+        )}
+      </For>
+    </div>
+  );
+}
 ```
 
 Remove `<title>` and `<a-scene>` tags in `index.html`, keep the `<template>` tags.

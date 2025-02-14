@@ -31,8 +31,10 @@ Create `.prettierrc.json` file with the following content:
 ```json
 {
   "printWidth": 120,
+  "singleQuote": true,
   "plugins": ["prettier-plugin-tailwindcss"],
-  "tailwindAttributes": ["classList"]
+  "tailwindAttributes": ["classList"],
+  "trailingComma": "es5"
 }
 ```
 
@@ -113,10 +115,12 @@ Modify the `package.json` scripts:
 ```json
 "start": "node server.cjs",
 "dev": "concurrently vite \"node server.cjs\"",
+"prettier": "prettier --write 'src/**/*.ts?' '*.md' index.html",
 ```
 
 The `start` command will be used by Glitch hosting service to start the easyrtc server.
 For the `dev` command, we use the cross-platform concurrently package to run both the vite dev server and the easyrtc server.
+The `prettier` command is to reformat all files.
 
 For development, run
 

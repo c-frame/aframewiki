@@ -17,6 +17,6 @@ If it's a 1-way communication, and not happening super-frequently, I think I'd p
 
 to add: discussion on garbage collection, differences coding in aframe vs. 'normal' javascript, component interfaces differing from normal functions
 
- - this is full of great little best practices: https://discoverthreejs.com/tips-and-tricks/
- - https://webglinsights.github.io/tips.html
- - https://medium.com/@michael.andrew/6-things-you-havent-optimised-in-your-webvr-content-272d74d541f0
+- this is full of great little best practices: https://discoverthreejs.com/tips-and-tricks/
+- https://webglinsights.github.io/tips.html
+- https://medium.com/@michael.andrew/6-things-you-havent-optimised-in-your-webvr-content-272d74d541f0

@@ -21,6 +21,6 @@ Some tweets about the bloom effect in Hubs:
 - https://twitter.com/MozillaHubs/status/1588516422568869894
 
 Selective bloom effect:
+
 - [Using custom props in blender on meshes to use the bloom effect on them](https://www.youtube.com/watch?v=er02gtD8asA) or [using emission strength to go >1.0](https://twitter.com/AshConnell/status/1625242297410678784)
 - There are also some tips on this issue: https://github.com/pmndrs/postprocessing/issues/496
-

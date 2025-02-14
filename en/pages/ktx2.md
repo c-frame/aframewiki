@@ -1,6 +1,7 @@
 # Using KTX2
 
 On Safari iOS your page may refresh several times then give up because of memory constraint because you're using too many 4k or 8k jpg/png textures. The GPI memory constraint applies to all images that are uploaded to the GPU, with 3d models, or aframe `material` component that references an image.
+
 ## Install toktx and gltf-transform commands
 
 Install the `toktx` command from https://github.com/KhronosGroup/KTX-Software
@@ -24,11 +25,12 @@ Install the `gltf-transform` command from npm https://www.npmjs.com/package/@glt
 ```sh
 npm install --global @gltf-transform/cli
 ```
+
 ## Optimizing glTF models
 
 You can use the `gltf-transform optimize` command to optimize glTF models, for textures by default it auto recompresses in original format and resize to 2048 max.
 You can add `--texture-compress ktx2` option to convert the textures to ktx2 format (etc1s / uastc) saving a lot of GPU memory, but it won't resize to 2048 max anymore, you will need to run a `gltf-transform resize` first to resize the jpg/png textures to 2048 max.
-Be aware it can take a lot of time to convert the textures to ktx2 format that is using the toktx command, depending of the model it could take 20 or 40 min... probably because of the default values used by `gltf-transform` for the  `toktx` command that uses `--uastc 4` (level 4 is very slow but higher quality).
+Be aware it can take a lot of time to convert the textures to ktx2 format that is using the toktx command, depending of the model it could take 20 or 40 min... probably because of the default values used by `gltf-transform` for the `toktx` command that uses `--uastc 4` (level 4 is very slow but higher quality).
 The command also applies other optimizing steps, like draco compression.
 
 An example of usage:
@@ -91,12 +93,15 @@ To load the image in aframe, that's similar to the Ada's article, but with `ktxL
 
 ```js
 const ktxLoader = AFRAME.scenes[0].systems['gltf-model'].getKTX2Loader();
-ktxLoader.load('/image.ktx2',
+ktxLoader.load(
+  '/image.ktx2',
   (texture) => {
     texture.encoding = THREE.sRGBEncoding;
     material.map = texture;
     material.needsUpdate = true;
-  }, undefined, (error) => {
+  },
+  undefined,
+  (error) => {
     console.error(error);
   }
 );

@@ -3,12 +3,11 @@
   -- Do NOT remove the leading `#` character.
   -->
 
-
 # A-Frame Wiki
+
 <a href="https://aframe.wiki">
   <img src="pages/uploads/images/aframe-logo.png" style="height:20px;"></a>
 <!-- ![AFRAME Logo](/docs/assets/img/aframe-logo.png) -->
-
 
 <!--
   -- Default theme
@@ -17,17 +16,16 @@
 
 [gimmick:theme](slate)
 
-
 <!--
   -- Navigation
   -- (Read: http://dynalon.github.io/mdwiki/#!quickstart.md#Adding_a_navigation)
   -->
 
 <!-- [About](pages/about.md) -->
+
 [Component Directory](pages/component-directory.md)
 [Edit Wiki](https://github.com/c-frame/aframewiki/tree/gh-pages/en)
 [Edit Component Directory](https://github.com/c-frame/aframewiki/edit/gh-pages/en/pages/component-directory.md)
-
 
 <!-- A more complex navigation example: ----------------------------------------
 

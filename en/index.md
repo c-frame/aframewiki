@@ -10,6 +10,7 @@ If you've done that and want to also support this wiki's server and the aframe.w
 <a href='https://ko-fi.com/C0C33CWNA' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://cdn.ko-fi.com/cdn/kofi2.png?v=2' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
 
 ## Pages
+
 You're probably looking for components. You can find them [Component Directory](/en/#!pages/component-directory.md).
 
 If you want to contribute, [make a pull request on Github](https://github.com/c-frame/aframewiki).
@@ -17,7 +18,7 @@ If you want to contribute, [make a pull request on Github](https://github.com/c-
 If you want other info, check out these pages:
 
 | Page                                        | Description                                                                         |
-|---------------------------------------------|-------------------------------------------------------------------------------------|
+| ------------------------------------------- | ----------------------------------------------------------------------------------- |
 | [Animation](pages/animation.md)             | Stub about animation                                                                |
 | [AR](pages/ar.md)                           | Augmented Reality with A-Frame                                                      |
 | [Audio & Video](pages/audio-video.md)       | Using Audio and Video files in A-Frame                                              |

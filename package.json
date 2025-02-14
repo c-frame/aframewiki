@@ -1,0 +1,27 @@
+{
+  "name": "aframewiki",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Home of the Component Directory",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs"
+  },
+  "scripts": {
+    "prettier": "prettier --write 'en/**/*.md'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/c-frame/aframewiki.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/c-frame/aframewiki/issues"
+  },
+  "homepage": "https://github.com/c-frame/aframewiki#readme",
+  "devDependencies": {
+    "prettier": "^3.5.1",
+    "prettier-plugin-tailwindcss": "^0.6.11"
+  }
+}

@@ -1,6 +1,7 @@
 # Component Directory
 
 ## Origin
+
 This is the modern, community-maintained alternative to the out-of-date A-Frame Registry.
 
 The historical standard has been to publish and search for component on NPM. This adds some overhead, though, and only searching on NPM can mean missing a lot of possible projects. A-Frame doesn't require a complex build process, either, so installing with NPM may not always be the best fit--the community can get a speed boost to our pages by all using the same cached CDNs, actually.
@@ -14,7 +15,6 @@ The focus here is not on the original author's repo, but on the most up-to-date 
 - You may find it easier to edit the table in an external markdown editor such as Typora. Just copy/paste the whole article across, make your edits, and copy/paste back.
 
 - Please avoid pasting raw links into the table as they mess with formatting (the markdown renderer refuses to split them, so everything gets pushed off to the right). To be clear: share links using this markdown code: `[link text](https://link.com)`, which will look like this: [link text](https://link.com).
-
 
 ## Notable collections of components
 

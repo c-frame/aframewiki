@@ -41,17 +41,17 @@ Create `.prettierrc.json` file with the following content:
 Edit `vite.config.ts` to enable https, listening on your network interface and proxying to naf server:
 
 ```js
-import { defineConfig } from "vite";
-import basicSsl from "@vitejs/plugin-basic-ssl";
-import solid from "vite-plugin-solid";
-import tailwindcss from "@tailwindcss/vite";
+import { defineConfig } from 'vite';
+import basicSsl from '@vitejs/plugin-basic-ssl';
+import solid from 'vite-plugin-solid';
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
   server: {
-    host: "0.0.0.0",
+    host: '0.0.0.0',
     proxy: {
-      "/socket.io": {
-        target: "http://127.0.0.1:8080/socket.io",
+      '/socket.io': {
+        target: 'http://127.0.0.1:8080/socket.io',
         changeOrigin: true,
         ws: true,
       },
@@ -65,7 +65,7 @@ Remove `import "./App.css";` in `App.tsx` and remove the `App.css` file.
 Replace the content of `index.css` by:
 
 ```css
-@import "tailwindcss";
+@import 'tailwindcss';
 ```
 
 Accessing the microphone or using WebGPURenderer require a secure context, that can be localhost on http, but needs to be https on the network interface.
@@ -156,13 +156,13 @@ function App() {
       <div class="pointer-events-none absolute bottom-4 left-4 z-10 gap-2 [&>*]:pointer-events-auto">
         <button
           onclick={() => {
-            const el = document.querySelector("[environment]");
+            const el = document.querySelector('[environment]');
             if (!el) return;
             // @ts-ignore
-            if (el.getAttribute("environment").preset === "forest") {
-              el.setAttribute("environment", "preset: arches");
+            if (el.getAttribute('environment').preset === 'forest') {
+              el.setAttribute('environment', 'preset: arches');
             } else {
-              el.setAttribute("environment", "preset: forest");
+              el.setAttribute('environment', 'preset: forest');
             }
           }}
           class="cursor-pointer rounded-xl border-4 border-black/80 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
@@ -252,12 +252,12 @@ Create or modify all the following files in the `src` directory.
 `App.tsx`:
 
 ```js
-import { MetaProvider, Title } from "@solidjs/meta";
-import { Router, Route } from "@solidjs/router";
-import { lazy } from "solid-js";
+import { MetaProvider, Title } from '@solidjs/meta';
+import { Router, Route } from '@solidjs/router';
+import { lazy } from 'solid-js';
 
-const Home = lazy(() => import("./pages/Home"));
-const Room = lazy(() => import("./pages/Room"));
+const Home = lazy(() => import('./pages/Home'));
+const Room = lazy(() => import('./pages/Room'));
 
 function App() {
   return (
@@ -284,7 +284,7 @@ export default App;
 `pages/Home.tsx`:
 
 ```js
-import { A } from "@solidjs/router";
+import { A } from '@solidjs/router';
 
 function Home() {
   return (
@@ -302,9 +302,9 @@ export default Home;
 `signals.tsx`:
 
 ```js
-import { createSignal } from "solid-js";
+import { createSignal } from 'solid-js';
 
-export const [primitive, setPrimitive] = createSignal("box");
+export const [primitive, setPrimitive] = createSignal('box');
 ```
 
 We'll import that signal in both the UI and the Scene components.
@@ -312,8 +312,8 @@ We'll import that signal in both the UI and the Scene components.
 `pages/Room.tsx`:
 
 ```js
-import { Scene } from "../Scene";
-import { UI } from "../UI";
+import { Scene } from '../Scene';
+import { UI } from '../UI';
 
 function Room() {
   return (
@@ -405,35 +405,35 @@ This will set `geometry="primitive: box"` or `geometry="primitive: sphere"` depe
 `UI.tsx`:
 
 ```js
-import { For } from "solid-js";
-import { primitive, setPrimitive } from "./signals";
+import { For } from 'solid-js';
+import { primitive, setPrimitive } from './signals';
 
 export function UI() {
   return (
     <div class="pointer-events-none absolute bottom-4 left-4 z-10 flex gap-2 [&>*]:pointer-events-auto">
       <button
         onclick={() => {
-          const el = document.querySelector("[environment]");
+          const el = document.querySelector('[environment]');
           if (!el) return;
           // @ts-ignore
-          if (el.getAttribute("environment").preset === "forest") {
-            el.setAttribute("environment", "preset: arches");
+          if (el.getAttribute('environment').preset === 'forest') {
+            el.setAttribute('environment', 'preset: arches');
           } else {
-            el.setAttribute("environment", "preset: forest");
+            el.setAttribute('environment', 'preset: forest');
           }
         }}
         class="cursor-pointer rounded-xl border-4 border-black/80 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
       >
         Change environment
       </button>
-      <For each={["sphere", "box"]}>
+      <For each={['sphere', 'box']}>
         {(choice) => (
           <button
             onclick={() => setPrimitive(choice)}
             class="cursor-pointer rounded-xl border-4 bg-white px-4 py-1 font-bold text-black/80 hover:border-[#ef2d5e] hover:text-[#ef2d5e]"
             classList={{
-              "border-[#ef2d5e]": primitive() === choice,
-              "border-black/80": primitive() !== choice,
+              'border-[#ef2d5e]': primitive() === choice,
+              'border-black/80': primitive() !== choice,
             }}
           >
             {choice}
@@ -456,31 +456,11 @@ So just keep in `index.html` `<body>` the following:
     <a-entity class="avatar">
       <a-sphere class="head" scale="0.45 0.5 0.4"></a-sphere>
       <a-entity class="face" position="0 0.05 0">
-        <a-sphere
-          class="eye"
-          color="#efefef"
-          position="0.16 0.1 -0.35"
-          scale="0.12 0.12 0.12"
-        >
-          <a-sphere
-            class="pupil"
-            color="#000"
-            position="0 0 -1"
-            scale="0.2 0.2 0.2"
-          ></a-sphere>
+        <a-sphere class="eye" color="#efefef" position="0.16 0.1 -0.35" scale="0.12 0.12 0.12">
+          <a-sphere class="pupil" color="#000" position="0 0 -1" scale="0.2 0.2 0.2"></a-sphere>
         </a-sphere>
-        <a-sphere
-          class="eye"
-          color="#efefef"
-          position="-0.16 0.1 -0.35"
-          scale="0.12 0.12 0.12"
-        >
-          <a-sphere
-            class="pupil"
-            color="#000"
-            position="0 0 -1"
-            scale="0.2 0.2 0.2"
-          ></a-sphere>
+        <a-sphere class="eye" color="#efefef" position="-0.16 0.1 -0.35" scale="0.12 0.12 0.12">
+          <a-sphere class="pupil" color="#000" position="0 0 -1" scale="0.2 0.2 0.2"></a-sphere>
         </a-sphere>
       </a-entity>
     </a-entity>
@@ -567,8 +547,8 @@ becomes
 
 ```js
 const createUI = (uiEl) => {
-  const root = document.createElement("div");
-  const id = "myui";
+  const root = document.createElement('div');
+  const id = 'myui';
   document.body.appendChild(root);
   const dispose = (0, web /* render */.XX)(
     () =>
@@ -579,7 +559,7 @@ const createUI = (uiEl) => {
     root
   );
 };
-(0, web /* delegateEvents */.z_)(["click"]);
+(0, web /* delegateEvents */.z_)(['click']);
 ```
 
 so I guess the issue is related to that, but I don't really understand how that works.
@@ -594,7 +574,7 @@ element.dispatchEvent(new MouseEvent(event, mouseEventInit));
 by
 
 ```js
-if (event === "click") {
+if (event === 'click') {
   // For SolidJS UI to work when onClick is a function and not a string,
   // we need to call element.click(), a MouseEvent won't work.
   // SolidJS may render new children synchronously if we call element.click()
@@ -636,15 +616,15 @@ What it generates is the following:
 
 ```js
 var map = {
-  "./environment.js": [4094],
-  "./flag-waving.js": [77214, 7214], // 7214 is three/addons/geometries/ParametricGeometry.js
+  './environment.js': [4094],
+  './flag-waving.js': [77214, 7214], // 7214 is three/addons/geometries/ParametricGeometry.js
 };
 function webpackAsyncContext(req) {
   // fail right away if the component is not a whitelisted module
   if (!__webpack_require__.o(map, req)) {
     return Promise.resolve().then(() => {
       var e = new Error("Cannot find module '" + req + "'");
-      e.code = "MODULE_NOT_FOUND";
+      e.code = 'MODULE_NOT_FOUND';
       throw e;
     });
   }

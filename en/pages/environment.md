@@ -45,12 +45,12 @@ Classic project with beautiful visuals and high performance. Canonical examples 
 
 ### background
 
-[documentation](https://aframe.io/docs/1.6.0/components/background.html)
+[documentation](https://aframe.io/docs/1.7.0/components/background.html)
 Sets a basic color background.
 
 ### a-sky
 
-[documentation](https://aframe.io/docs/1.6.0/primitives/a-sky.html) &nbsp;
+[documentation](https://aframe.io/docs/1.7.0/primitives/a-sky.html) &nbsp;
 A large sphere with a background color or equirectangular 360° image.
 
 ### simple-sun-sky
@@ -124,7 +124,7 @@ Now supports textures and box texture for windows, and updated for compatibility
 
 ### fog
 
-[documentation](https://aframe.io/docs/1.6.0/components/fog.html) &nbsp;
+[documentation](https://aframe.io/docs/1.7.0/components/fog.html) &nbsp;
 The built-in fog component.
 
 ### fix-fog
@@ -150,5 +150,5 @@ Also adds atmosphere — pink fairy lights for a paradise, black ash for a hells
 
 ### sound
 
-[documentation](https://aframe.io/docs/1.6.0/components/sound.html) &nbsp;
-See [the FAQ](https://aframe.io/docs/1.6.0/introduction/faq.html#where-can-i-find-assets) to find sources for environmental sound.
+[documentation](https://aframe.io/docs/1.7.0/components/sound.html) &nbsp;
+See [the FAQ](https://aframe.io/docs/1.7.0/introduction/faq.html#where-can-i-find-assets) to find sources for environmental sound.

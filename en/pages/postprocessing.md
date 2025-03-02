@@ -7,8 +7,10 @@ Similar techniques will probably work for other postprocessing effects.
 Really old [aframe-effects](https://github.com/wizgrav/aframe-effects) is also available (and seeking a maintainer);
 
 Newer with a custom build of aframe 1.4.2 that has a threejs patch for postprocessing in VR: [Akbartus's A-Frame-Component-Postprocessing](https://github.com/akbartus/A-Frame-Component-Postprocessing)
-As of three r172, it sill requires those changes https://github.com/supermedium/three.js/pull/20
-See also postprocessing VR issue that tracks VR support https://github.com/pmndrs/postprocessing/issues/677
+The threejs [patch](https://github.com/supermedium/three.js/commit/d575277f70b20b3881cc7ac5d15962fe9009232d) (in the super-r173-5 branch) is now included in A-Frame 1.7.0 super-three 0.173.4 and later [master build](https://cdn.jsdelivr.net/gh/aframevr/aframe@51505e3687967ab0e01954589c6de1dd0bbbaeae/dist/aframe-master.module.min.js) Feb 28, 2025 with super-three 0.173.5 that includes a fix for the white scene when exiting VR.
+In A-Frame 1.7.0, an example using threejs postprocessing with bloom effect that is working in VR: https://aframe.io/aframe/examples/showcase/post-processing/
+
+For pmndrs postprocessing package, it's not currently working in VR, see [this issue](https://github.com/pmndrs/postprocessing/issues/677) that tracks VR support.
 
 See also [this discussion started in June 2018](https://github.com/aframevr/aframe/pull/3645) about introducing a postprocessing API in A-Frame.
 

@@ -70,10 +70,27 @@ and run `npm run open-quest` to open the url on your Quest.
 ## HTTPS
 
 WebXR can only run over HTTPS.
-It's super -easy to run a local HTTP server using node.js (http-server) or python (python -m http.server), but not quite so easy to set up an HTTPS server.
-Here are some of handy solutions (more details of some of these below)
 
-- Develop in the cloud, using a platform like glitch.com
+It's super-easy to run a local HTTP server using [node.js](https://nodejs.org) (`npx http-server -c-1`) or python (`python3 -m http.server`), but not quite so easy to set up an HTTPS server.
+
+With `http-server`, you can specify a self-signed certificate. you can create one with [mkcert](https://github.com/FiloSottile/mkcert) for example and then use the following command:
+```
+npx http-server -c-1 -S -C cert.pem -K key.pem
+```
+
+You can also use webpack-dev-server, it can generate a self-signed certificate
+automatically and reload on changes. First install nodejs, create an empty src/index.js file so
+webpack doesn't produce an error, then to serve your current directory execute:
+
+```
+npm install -D webpack-cli webpack-dev-server
+npx webpack serve --server-type https --mode development --static .
+```
+
+You need to execute it twice the first time you install the dependencieit.
+
+Here are some other handy solutions (more details of some of these below)
+
 - Develop locally, and set up an HTTPS tunnel to your local PC using ngrok
 - Develop locally, but push your code to the cloud using a service like surge.sh.
 - Run your own web server on a Raspberry Pi

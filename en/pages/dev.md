@@ -79,15 +79,13 @@ npx http-server -c-1 -S -C cert.pem -K key.pem
 ```
 
 You can also use webpack-dev-server, it can generate a self-signed certificate
-automatically and reload on changes. First install nodejs, create an empty src/index.js file so
+automatically and reload on changes. First install nodejs, create an empty `src/index.js` file so
 webpack doesn't produce an error, then to serve your current directory execute:
 
 ```
 npm install -D webpack-cli webpack-dev-server
 npx webpack serve --server-type https --mode development --static .
 ```
-
-You need to execute it twice the first time you install the dependencieit.
 
 Here are some other handy solutions (more details of some of these below)
 

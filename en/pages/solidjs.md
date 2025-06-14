@@ -4,7 +4,6 @@ Author: [Vincent Fretin](https://github.com/sponsors/vincentfretin)
 Last updated: Feb 2025
 
 The final code of this tutorial from the advanced section is available at https://github.com/vincentfretin/my-aframe-solid-app
-and deployed on Glitch at https://my-aframe-solid-app.glitch.me
 
 You can read the [version rendered on GitHub](https://github.com/c-frame/aframewiki/blob/gh-pages/en/pages/solidjs.md)
 to easily copy the code snippets.
@@ -77,7 +76,7 @@ I advice not to use [SolidStart](https://start.solidjs.com/) even with CSR (Clie
 
 ## Add A-Frame and Networked-Aframe to the project
 
-Then include A-Frame script tag and other components you need in the `index.html` file. The easiest way is to grab the content of the `index.html` file of the [naf-project](https://glitch.com/edit/#!/naf-project) glitch and paste it in the `index.html` file of your project and put back the two lines before `</body>`:
+Then include A-Frame script tag and other components you need in the `index.html` file. The easiest way is to grab the content of the `index.html` file of the [naf-project](https://github.com/networked-aframe/naf-project/blob/main/public/index.html) and paste it in the `index.html` file of your project and put back the two lines before `</body>`:
 
 ```html
 <div id="root"></div>
@@ -105,10 +104,10 @@ npm install networked-aframe
 npm install --save-dev concurrently
 ```
 
-Grab the content of `server.js` from glitch and put it in your project in a `server.cjs` file at the root. Note the cjs extension here is needed because we're in a ESM node project declared with the `"type": "module"` in `package.json` file and the server code is in CommonJS format.
-You also need to change `app.use(express.static("public"));` by `app.use(express.static("dist"));` in the `server.cjs` file that will be used when run with `npm start`, that's also what is used with hosting service like glitch.
+Grab the content of `server.js` from naf-project and put it in your project in a `server.cjs` file at the root. Note the cjs extension here is needed because we're in a ESM node project declared with the `"type": "module"` in `package.json` file and the server code is in CommonJS format.
+You also need to change `app.use(express.static("public"));` by `app.use(express.static("dist"));` in the `server.cjs` file that will be used when run with `npm start`, that's also what is used with some hosting services.
 
-Create public/js directory and put the content of `public/js/spawn-in-circle.component.js` from glitch in it.
+Create public/js directory and put the content of `public/js/spawn-in-circle.component.js` from naf-project in it.
 
 Modify the `package.json` scripts:
 
@@ -118,7 +117,7 @@ Modify the `package.json` scripts:
 "prettier": "prettier --write 'src/**/*.ts?' '*.md' index.html",
 ```
 
-The `start` command will be used by Glitch hosting service to start the easyrtc server.
+The `start` command will be used by the hosting service to start the easyrtc server.
 For the `dev` command, we use the cross-platform concurrently package to run both the vite dev server and the easyrtc server.
 The `prettier` command is to reformat all files.
 
@@ -141,8 +140,6 @@ Then test if all is working properly with
 ```sh
 npm start
 ```
-
-To deploy to Glitch, see next section.
 
 To deploy to a server instance (EC2 instance, DO droplet, VPS), you need to deploy the `dist` folder
 and run `pm2 start server.js` for example with nginx in front plus certbot to create a letsencrypt certificate.
@@ -181,63 +178,6 @@ export default App;
 ```
 
 See [naf-valid-avatars](https://github.com/networked-aframe/naf-valid-avatars) repository for an example of full UI with microphone and chat buttons for networked-aframe written with SolidJS. That repository is using webpack and the previous version of tailwindcss (v3 with postcss).
-
-## Deploy to Glitch
-
-Deploying to Glitch requires to type some commands.
-
-Note that Glitch only supports NodeJS 16 (in Feb 2025) and Vite 6 requires minimum NodeJS 18 so you can't run `npm run build` in the Glitch Console.
-
-Create a new Glitch project with the template glitch-hello-website, edit the subdomain in Settings with a name you want.
-
-On your machine in your project, set up a git repo:
-
-Add to `package.json` just before the ending `}`:
-
-```js
-"engines": {
-  "node": ">=16"
-}
-```
-
-and remove `dist` from the `.gitignore` file.
-
-Create your repo on GitHub and follow the instructions there. Mainly execute:
-
-```sh
-git init
-git add .
-git commit -m"first commit"
-git branch -M main
-git remote add origin <your github ssh url>
-git push -u origin main
-```
-
-The above steps are only needed once, you can skip them for the next time you want to deploy.
-
-From your machine, create a build and push:
-
-```sh
-git rm -rf dist
-npm run build
-git add dist
-git commit -m"build dist"
-git push
-```
-
-Open the Glitch Console and type:
-
-```sh
-git remote add github <your github https url>
-git fetch github
-git reset --hard github/main
-refresh
-```
-
-The `refresh` command will refresh the Glitch editor interface and will start to execute `npm install` and `npm start`.
-You can follow the progress by clicking on the Logs tab.
-
-The application is deployed!
 
 ## Rendering the scene via a SolidJS component (advanced)
 

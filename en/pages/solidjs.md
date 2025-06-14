@@ -48,6 +48,7 @@ import solid from 'vite-plugin-solid';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
+  base: './', // to deploy to GitHub Pages without custom domain
   server: {
     host: '0.0.0.0',
     proxy: {
@@ -141,6 +142,29 @@ Then test if all is working properly with
 npm start
 ```
 
+To deploy to GitHub Pages, you can't use networked-aframe so you need to disable it, edit `src/Scene.tsx` to set `networked-scene="connectOnLoad: false; ..."`.
+
+Install the `gh-pages` dependency:
+
+```sh
+npm install --save-dev gh-pages
+```
+
+add to `package.json` scripts:
+
+```json
+"deploy": "npm run build && gh-pages -d dist",
+```
+
+and run
+
+```sh
+npm run deploy
+```
+
+It will build the project, copy the dist folder to a gh-pages branch and push it.
+The deployed site will be at `https://username.github.io/your-repo/`
+
 To deploy to a server instance (EC2 instance, DO droplet, VPS), you need to deploy the `dist` folder
 and run `pm2 start server.js` for example with nginx in front plus certbot to create a letsencrypt certificate.
 See https://github.com/networked-aframe/networked-aframe/issues/244 for more details.
@@ -203,10 +227,25 @@ import { lazy } from 'solid-js';
 const Home = lazy(() => import('./pages/Home'));
 const Room = lazy(() => import('./pages/Room'));
 
+function getBasePath() {
+  const { origin, pathname } = window.location;
+
+  if (origin.includes('github.io')) {
+    // e.g., https://username.github.io/my-aframe-solid-app/
+    // → returns '/my-aframe-solid-app'
+    const match = pathname.match(/^\/[^/]+/);
+    return match ? match[0] : '/';
+  }
+
+  // Local dev or custom domain → root
+  return '/';
+}
+
 function App() {
   return (
     <MetaProvider>
       <Router
+        base={base}
         root={(props) => {
           return (
             <>

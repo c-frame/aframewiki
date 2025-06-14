@@ -94,34 +94,9 @@ Here are some other handy solutions (more details of some of these below)
 - Run your own web server on a Raspberry Pi
 - Use adb-reverse, so that your VR device thinks it is talking to localhost. See: https://medium.com/@lazerwalker/how-to-easily-test-your-webvr-and-webxr-projects-locally-on-your-oculus-quest-eec26a03b7ee
 
-## Glitch.com
-
-Great for starting out--lets you code and immediately serve the code live, making it easy to see updates instantly and easy to test multiuser features, as well as easy to launch on your oculus quest.
-This is also the preferred platform for requesting help. Making a glitch makes it easy for others to see if there's a simple solution and view the errors themselves, and run local experiments for potential fixes, with the minimum amount of work. This means you're more likely to get help.
-
-### Basic workflow (in-browser dev)
-
-- Go to glitch.com
-- start a new project
-- 'view in new tab'
-- profit
-
-### Advanced workflow (local dev)
-
-Glitch also integrates with github, making it possible to upload assets, and to develop locally and push your changes up as desired.
-
-- connect glitch to your github/gitlab
-- clone down from glitch as a remote itself
-- make a branch, make changes, push to glitch remote
-- open terminal in glitch site, merge in branch to master
-- run 'refresh' in the glitch terminal
-- profit
-  ([Source](https://support.glitch.com/t/possible-to-code-locally-and-push-to-glitch-with-git/2704/2))
-  This workflow is pretty seamless after your first pass through.
-
 ## Alternative Home Raspberry Pi Development Environment
 
-As an alternative to using Glitch or a paid server in the cloud, or in addition to it. It is possible to develop, test and host on a Raspberry Pi Model 4B 8GB on your own home network for what you are already paying your internet service provider monthly (hence essentially free, minus cost of Pi hardware). Requires opening ports on your router for outside internet access (sometimes a little tricky, depending on your networks setup).
+It is possible to develop, test and host on a Raspberry Pi Model 4B 8GB on your own home network for what you are already paying your internet service provider monthly (hence essentially free, minus cost of Pi hardware). Requires opening ports on your router for outside internet access (sometimes a little tricky, depending on your networks setup).
 
 - [Long and detailed article explaining how](https://michael-mcanally.medium.com/setting-up-a-raspberry-pi-as-a-home-metaverse-server-for-your-vr-headset-12632ac1b871)
 

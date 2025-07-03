@@ -471,8 +471,8 @@ Example:
 
 ```js
 import type { Entity } from "aframe";
-const cameraRig = document.getElementById("cameraRig") as Entity;
-cameraRig.setAttribute("movement-controls", "enabled", false);
+const cameraRig = document.getElementById("cameraRig") as Entity | null;
+cameraRig?.setAttribute("movement-controls", "enabled", false);
 ```
 
 ## Click on button with aframe-htmlmesh

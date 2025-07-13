@@ -16,3 +16,15 @@ Source not touched in 4 years, but can work up to pre-1.2.0 (THREE.Geometry erro
 
 [source](https://github.com/adrixp/aframe-charts-component)
 More recent, though still untouched in about 2 years. Looks less feature-rich than a-framedc.
+
+# Auxiliary tools
+
+## data-presenter tool of aframe-presenter
+
+Allows presenting your graph to any number of users, using the [aframe-croquet-component](https://github.com/NikolaySuslov/aframe-croquet-component#how-to-share-an-entity-in-an-a-frame-scene-with-other-users).
+Participants with VR headsets can use laser pointers.
+Does not include audio nor text chat.
+
+[source](https://github.com/DougReeder/group-viewer/#data-presenter)
+
+[demo](https://modelpresenter.hominidsoftware.com/data-presenter/)

@@ -31,8 +31,17 @@ Supports manually created instances of a scene called rooms, and changing the sc
 
 ### [A-Frame Croquet Component](https://github.com/NikolaySuslov/aframe-croquet-component)
 
-[Croquet OS](https://croquet.studio/docs/) is real-time synchronization-as-a-service (and not restricted to WebXR).
-You don't run your own synchronization server; large traffic volumes would require payment.
+_Croquet OS_ (then [_Multisynq_], now [_Forerunner_]) is real-time synchronization-as-a-service (and not restricted to WebXR). You don't run your own synchronization server; large traffic volumes require payment.
+[The original Croquet is now open-source][Croquet], and you can choose to run your own reflector, to be independent of the Forerunner network.
+
+[_Multisynq_]: https://multisynq.io/
+[_Forerunner_]: https://forerunnerprotocol.xyz/
+[Croquet]: https://github.com/croquet/croquet#croquet-
+
+Croquet does *not* handle voice nor text chat, though you *could* write a text chat feature using it.
+Thus, Croquet is good for writing tools which augment other multiuser experiences.
+For a full, standalone immersive multi-user experience, it may be less effort to use one of the other technologies on this page.
+
 It's designed around keeping state in its own Model objects, which have a number of restrictions so each client maintains a bit-identical simulation.
 Web apps which keep all state and modeling in Croquet Models avoid the who-grabbed-it-first problem.
 It keeps snapshots, so the state of a session is maintained, even after all users have gone off-line.
@@ -43,7 +52,7 @@ However, you don't have to use Worldcore, and can use the [A-Frame Croquet Compo
 Off-the-shelf A-Frame components maintain state internally, so don't gain the full advantage of Croquet OS.
 (And if you're re-writing a component, you should consider using Worldcore.)
 
-It's super-easy to [throw together a multi-user experience](https://github.com/NikolaySuslov/aframe-croquet-component#how-to-share-an-entity-in-an-a-frame-scene-with-other-users) (without voice chat), but as an immature library, you might have to code and submit a PR to get advanced capabilities.
+It's super-easy to [throw together a multi-user experience](https://github.com/NikolaySuslov/aframe-croquet-component#how-to-share-an-entity-in-an-a-frame-scene-with-other-users), but as an immature library, you might have to code and submit a PR to get advanced capabilities.
 
 Supports multiple instances of a room configuration.
 
@@ -55,21 +64,21 @@ Self-host it on your own servers for free, or use their commercial Colyseus Clou
 
 ## Comparison Table
 
-|                            | aframe-croquet-component | networked-aframe                                                               | Colyseus      | Hubs w/ custom A-Frame client                                               |
-| -------------------------- | ------------------------ | ------------------------------------------------------------------------------ | ------------- | --------------------------------------------------------------------------- |
-| server setup               | none                     | easy                                                                           | none or ?     | medium (Kubernetes cluster required)                                        |
-| maintained                 | yes                      | yes for core, depends on the adapters, easyrtc adapter has longstanding issues | yes           | yes                                                                         |
-| A-Frame versions           | 1.3.0 - 1.6.0            | 1.5.0-1.7.0                                                                    | ?             | forked, primitives removed, new features won't use A-Frame                  |
-| code maturity              | immature                 | mature for core and janus, socketio, uws adapters                              | mature?       | mature                                                                      |
-| instanced rooms            | yes                      | yes                                                                            | yes           | yes                                                                         |
-| synced attributes          | position rotation scale  | by NAF schema                                                                  | by JavaScript | by NAF schema                                                               |
-| object mutation & deletion | anyone                   | owner                                                                          | by JavaScript | owner                                                                       |
-| private sessions           | automatic                | manual, add auth to the easyrtc server and JWT for janus                       | by JavaScript | automatic                                                                   |
-| voice chat                 | no                       | yes                                                                            | no?           | yes                                                                         |
-| user avatar selection      | no                       | no                                                                             | no            | yes                                                                         |
-| custom network messages    | yes                      | yes                                                                            | ?             | yes                                                                         |
-| state preserved w/o users  | yes                      | no                                                                             | ?             | no, but you can pin objects to keep them                                    |
-| synced random seeds (1)    | yes                      | no                                                                             | ?             | no                                                                          |
-| example                    | https://xalot.surge.sh/  | https://naf-examples.glitch.me/                                                |               | https://hfk-virtual.space/ZBoNiw6/aussenbereich?newLoader=#Waypoint-Eingang |
+|                            | aframe-croquet-component | networked-aframe                                                               | Colyseus      | Hubs w/ custom A-Frame client                                          |
+| -------------------------- |--------------------------| ------------------------------------------------------------------------------ | ------------- |------------------------------------------------------------------------|
+| server setup               | none                     | easy                                                                           | none or ?     | medium (Kubernetes cluster required)                                   |
+| maintained                 | yes                      | yes for core, depends on the adapters, easyrtc adapter has longstanding issues | yes           | yes                                                                    |
+| A-Frame versions           | 1.3.0 - 1.7.1            | 1.5.0-1.7.0                                                                    | ?             | forked, primitives removed, new features won't use A-Frame             |
+| code maturity              | immature                 | mature for core and janus, socketio, uws adapters                              | mature?       | mature                                                                 |
+| instanced rooms            | yes                      | yes                                                                            | yes           | yes                                                                    |
+| synced attributes          | all                      | by NAF schema                                                                  | by JavaScript | by NAF schema                                                          |
+| object mutation & deletion | anyone                   | owner                                                                          | by JavaScript | owner                                                                  |
+| private sessions           | automatic                | manual, add auth to the easyrtc server and JWT for janus                       | by JavaScript | automatic                                                              |
+| voice chat                 | no                       | yes                                                                            | no?           | yes                                                                    |
+| user avatar selection      | no                       | no                                                                             | no            | yes                                                                    |
+| custom network messages    | yes                      | yes                                                                            | ?             | yes                                                                    |
+| state preserved w/o users  | yes                      | no                                                                             | ?             | scene & objects that are pinned                                        |
+| synced random seeds (1)    | yes                      | no                                                                             | ?             | no                                                                     |
+| example                    | https://modelpresenter.hominidsoftware.com/ | https://naf-examples.glitch.me/                             |               | https://hfk-virtual.space/ZBoNiw6/aussenbereich?newLoader=#Waypoint-Eingang |
 
 - (1) synced random seeds: these are commonly used to procedurally generate the same world on each client.

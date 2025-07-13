@@ -1,6 +1,6 @@
 # Project Directory
 
-Here are some nifty things people have made in A-Frame (as well as WebXR in general). Feel free to add your project here to section at the bottom of the page.
+Here are some nifty things people have made in A-Frame (as well as WebXR in general). Feel free to add your project here to the bottom of the appropriate section.
 
 ### Btw: Getting your project onto the Quest 2 browser's new-tab page?
 
@@ -30,8 +30,8 @@ Ever opened your quest and wondered where those suggest webxr projects come from
   Just an interesting prototype museum exploration tool
 - [Winter Wonderland](https://diarmidmackenzie.github.io/christmas-scene/)
   An Xmas 2021 project that includes a lot of basic elements like custom geometries, physics, particles, environment, music & sounds etc.
-- [Youtube WebVR Experiments](https://youtube-experiments.glitch.me/)
-  A webxr youtube player in your own little private theatre
+- [YouTube WebVR Experiments](https://youtube-experiments.glitch.me/)
+  A webxr YouTube player in your own little private theatre
 - [Piano Quest](https://gftruj.github.io/hand.tracking.controls.extras/examples/piano.html)
   Play a piano with hand tracking!
 - [Papyrus Please](https://js13kgames.com/games/papyrus-please/index.html)
@@ -43,18 +43,19 @@ Ever opened your quest and wondered where those suggest webxr projects come from
 - [Poker](https://danb.io/pokxr/), [Dan B](http://danb.io)
   Live multiplayer poker, with live video for faces
 - [Fun Bit 64](https://funbit64.com/), [Michael McAnally](http://michaelmcanally.info/)
-  Open VR Server using NAF -showcasing Art Gallery, Treasure Island, VR Office and WebXR Blog with tutorial articles
+  Open VR Server using NAF — showcasing Art Gallery, Treasure Island, VR Office and WebXR Blog with tutorial articles
+- [Model Presenter](https://modelpresenter.hominidsoftware.com/), [Doug Reeder](https://github.com/DougReeder) Presents a 3-D model file (in GLB format) to *any number* of people online, using the Forerunner network. Participants with VR headsets can use laser pointers. Does not include audio nor text chat.
 
 ### Experiments from Akbartus
 
 - [GTLF Manipulator](https://github.com/akbartus/A-Frame-Component-GLTF-Manipulator)
-  Component which allows to edit individual nodes of a file, including replace texture, add color, move parts, etc. There are many creative projects which make use of GLTF editing in the runtime, including change of texture of 3D models to show various designs/create coloring pages.
+  Component which allows editing individual nodes of a file, including replace texture, add color, move parts, etc. There are many creative projects which make use of GLTF editing in the runtime, including change of texture of 3D models to show various designs/create coloring pages.
 - [Volumetric Video](https://github.com/akbartus/A-Frame-Volumetric-Video-Component)
   Volumetric videos in A-Frame. It is based on [Volograms](https://twitter.com/volograms). The creation of the component was inspired from similar works of Remy Mellet [Volograms.js](https://github.com/remmel/volograms-js), [A-Frame Volograms](https://github.com/remmel/aframe-volograms) and Volograms' playback library [vol_libs](https://github.com/Volograms/vol_libs).
 - [SpotLight with Texture](https://github.com/akbartus/A-Frame-SpotLight-with-Texture-Component)
   Component which lets project textures (which can be both images and videos) on mesh surfaces called "Spotlight Texture Component". The component was created based on the works by Marco Fugaro named [Three Projected Material](https://github.com/marcofugaro/three-projected-material), Codrops Texture Projection as well as Spotlight example provided in [Three.js library](https://threejs.org/examples/#webgl_lights_spotlight).
 - [GLTF PointCloud Transitions](https://github.com/akbartus/A-Frame-Component-GLTF-PointCloud-Transitions)
-  Component which lets you do point cloud based transitions. Basically, you load at least two GLTF files and get smoothly animated transition effect. It was developed based on [3D Models Transitions and Mouse Hovering Effects — ThreeJS](https://medium.com/@mahmed07041/3d-models-transitions-and-mouse-hovering-effects-threejs-664280bd8274) article on Medium.com and Austin Mayer's [portfolio project](https://twitter.com/amayer_/status/1098662776929693706).
+  Component which lets you do point cloud based transitions. Basically, you load at least two GLTF files and get a smoothly animated transition effect. It was developed based on [3D Models Transitions and Mouse Hovering Effects — ThreeJS](https://medium.com/@mahmed07041/3d-models-transitions-and-mouse-hovering-effects-threejs-664280bd8274) article on Medium.com and Austin Mayer's [portfolio project](https://twitter.com/amayer_/status/1098662776929693706).
 - [Lenticular image effects](https://github.com/akbartus/A-Frame-Component-Lenticular-Image)
 
 ## General WebXR
@@ -66,7 +67,7 @@ https://sidequestvr.com/apps/webxr
 
 ### Some More WebXR Apps
 
-This are also WebXR apps you can experience in VR, but is it either unknown if they are built in A-Frame or certain that they aren't.
+These are also WebXR apps you can experience in VR, but is it either unknown if they are built in A-Frame or certain that they aren't.
 
 - [brushwork](https://brushworkvr.com/paint)
   Polished painting app
@@ -132,6 +133,6 @@ It's common for people to build collections and then for them to sit unmaintaine
 - [Original A-Frame Showcase](https://aframe.io/showcase/)
   From the A-Frame docs, currently out of date
 - [WeArVr](https://www.wearvr.com/browse/newest?device=webvr)
-  A seemingly out of date collection of WebVR content, haven't checked it closely
+  A seemingly out-of-date collection of WebVR content, haven't checked it closely
 - [XRCA.DE](http://XRca.de)
   A small curated collection, but does include the out-of-date A-Painter, so not sure about the rest

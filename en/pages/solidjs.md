@@ -630,3 +630,5 @@ async function loadComponent(componentName) {
   }
 }
 ```
+
+Note, vite should have the same behavior, it does a similar thing when loading assets with `new URL(`./dir/${name}.png`, import.meta.url).href`, see https://vite.dev/guide/assets.html#new-url-url-import-meta-url

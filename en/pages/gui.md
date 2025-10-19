@@ -54,11 +54,11 @@ There is no aframe component but you can create your component that uses this li
 
 [Project Flowerbed](https://developer.oculus.com/blog/project-flowerbed-a-webxr-case-study/) used this library to create the UI. The UI is written in json, see one of the files in the [GitHub repository](https://github.com/meta-quest/ProjectFlowerbed/tree/main/content/ui) and the [UIPanelComponent](https://github.com/meta-quest/ProjectFlowerbed/blob/main/src/js/components/UIPanelComponent.js) creates the three-mesh-ui objects from the json.
 
-# uikit
+# uikitml
 
-project-link: https://github.com/pmndrs/uikit
+project link: https://github.com/pmndrs/uikit and https://pmndrs.github.io/uikit/docs/getting-started/vanilla but you probably want to use https://github.com/pmndrs/uikitml directly.
 
-There is no aframe component but you sould be able to create one that uses this library.
+There is no aframe component but you sould be able to create one that uses [uikitml](https://github.com/pmndrs/uikitml) and [@pmndrs/pointer-events](https://github.com/pmndrs/xr/tree/main/packages/pointer-events#readme), see how it's done in the [iwsdk](https://iwsdk.dev/) [PanelUI component](https://github.com/facebook/immersive-web-sdk/blob/main/packages/core/src/ui/ui.ts) that takes the compiled UIKitML JSON that you get with the [uikitml parse](https://github.com/pmndrs/uikitml?tab=readme-ov-file#usage) function from the html string.
 
 # websurfaces
 

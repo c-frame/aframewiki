@@ -19,7 +19,6 @@ This component doesn't support:
 
 - scrolling
 - dynamically resizing the div ([draft PR](https://github.com/AdaRoseCannon/aframe-htmlmesh/pull/14))
-- text input
 - blur, focus, active, hover ([draft PR for hover on buttons](https://github.com/AdaRoseCannon/aframe-htmlmesh/pull/9), you need a css rule with `button:hover,button.hover`)
 - svg
 - scaling the plane. You can change the scaling value in the code [here](https://github.com/AdaRoseCannon/aframe-htmlmesh/blob/cd491eae3d33b442f80eadfb5dd1c8f48dd684f3/src/HTMLMesh.js#L21) but it would be better if this was configurable.
@@ -28,9 +27,9 @@ This component doesn't support:
 
 It supports:
 
-- text, number, email, password, radio, checkbox, range input
+- text, number (known issue in Meta browser, it uses the alphanumeric keyboard instead of numeric keyboard in immersive-vr session), email, password, radio, checkbox, range input
 - support for bringing the system keyboard on Meta browser for text, number, email, password input
-- images with img tags ([without border/padding on them](https://github.com/mrdoob/three.js/pull/25925#issuecomment-1523743648), but you can use border/padding on the parent element), it doesn't support css background-image. Be aware you need to make sure that the images are loaded before rendering the htmlmesh, the logic of rerendering the htmlmesh when the images are loaded is not implemented neither in HTMLMesh nor in aframe-htmlmesh, but could be an enhancement to make in aframe-htmlmesh (something similar to [this](https://github.com/mrdoob/three.js/pull/24043/files#diff-03bfe85f34eecb74c4414a3631d2b42f889587d3bcfbd661f65c789829a242d8R456-R464)).
+- images with img tags ([without border/padding on them](https://github.com/mrdoob/three.js/pull/25925#issuecomment-1523743648), but you can use border/padding on the parent element), it doesn't support css background-image. Be aware you need to make sure that the images are loaded before rendering the htmlmesh, the logic of rerendering the htmlmesh when the images are loaded is not implemented neither in HTMLMesh nor in aframe-htmlmesh, but could be an enhancement to make in aframe-htmlmesh (something similar to [this](https://github.com/mrdoob/three.js/pull/24043/files#diff-03bfe85f34eecb74c4414a3631d2b42f889587d3bcfbd661f65c789829a242d8R456-R464), see also discussion in [issue #33](https://github.com/AdaRoseCannon/aframe-htmlmesh/issues/33#issuecomment-3569872297)).
 - button (If you're generating the html with solid and maybe react, see [this issue](solidjs.md#Click_on_button_with_aframe-htmlmesh) about the click event.)
 - canvas if you have a graph or something
 - supported css properties (not exhaustive): accent-color, color, background-color, border, border-radius

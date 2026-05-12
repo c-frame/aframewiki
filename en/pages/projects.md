@@ -2,15 +2,24 @@
 
 Here are some nifty things people have made in A-Frame (as well as WebXR in general). Feel free to add your project here to the bottom of the appropriate section.
 
-### Btw: Getting your project onto the Quest 2 browser's new-tab page?
+### BTW: Getting your project onto the Quest browser's new-tab page?
 
-Ever opened your quest and wondered where those suggest webxr projects come from? [Here's their submission criteria and process](https://developer.oculus.com/documentation/oculus-browser/browser-new-tab/).
+Ever opened your Quest and wondered where those suggested WebXR projects come from? [Here's their submission criteria and process](https://developer.oculus.com/documentation/oculus-browser/browser-new-tab/).
 
-### Also: PWA's on quest 2
+### Also: PWAs
 
-- Progressive Web Apps are a way to install a webpage as if it were an app. This is now supported on the quest 2! Check it out:
+#### Packaged Web Apps
+
+Packaged Web Apps are a way to install a webpage as if it were an app. This is now supported on the Quest 2, 3, & 3s! Check it out:
   https://web.dev/pwas-on-oculus-2/
-  PWA's can be published on apps stores! See [here](https://pwabuilder.com/) for more info.
+  Packaged Web Apps can be published on apps stores! See [here](https://pwabuilder.com/) for more info.
+
+#### Progressive Web Apps
+
+A Progressive Web App is accessed like any other webpage, but, after a user has interacted with it for a bit, can be installed on the device.
+It then appears to users like native apps and Packaged Web Apps.
+Recent Pico headsets support this, including for flat webapps, so they have a better selection of productivity apps than Quest headsets.
+A few web APIs, such as [Web Share Target](https://developer.mozilla.org/en-US/docs/Web/Progressive_web_apps/Manifest/Reference/share_target), can only be used in a PWA.
 
 ## A-Frame
 
@@ -31,7 +40,7 @@ Ever opened your quest and wondered where those suggest webxr projects come from
 - [Winter Wonderland](https://diarmidmackenzie.github.io/christmas-scene/)
   An Xmas 2021 project that includes a lot of basic elements like custom geometries, physics, particles, environment, music & sounds etc.
 - [YouTube WebVR Experiments](https://youtube-experiments.glitch.me/)
-  A webxr YouTube player in your own little private theatre
+  A WebXR YouTube player in your own little private theatre
 - [Piano Quest](https://gftruj.github.io/hand.tracking.controls.extras/examples/piano.html)
   Play a piano with hand tracking!
 - [Papyrus Please](https://js13kgames.com/games/papyrus-please/index.html)
@@ -129,7 +138,7 @@ It's common for people to build collections and then for them to sit unmaintaine
 - [THREE WebXR samples](https://threejs.org/examples/?q=webxr#webxr_ar_paint)
 - [XRswim](https://xrswim.com/)
   (Seemingly stale collection from early 2020)
-  XR-swim had a [couple](https://www.roadtovr.com/xr-swim-webxr-platform-store/) [press](https://vrscout.com/news/xr-swim-web-vr-ar-platform/) [releases](https://servreality.com/news/xr-swim-a-free-platform-for-content-webxr/) about becoming the storefront for webxr, but seemed to not get updated. Features a lot of webVR (spec before webxr) content that no longer works on webxr spec browsers, but also has many lots of good webXR content. Seems untouched since April 2020 as of this writing in early 2021.
+  XR-swim had a [couple](https://www.roadtovr.com/xr-swim-webxr-platform-store/) [press](https://vrscout.com/news/xr-swim-web-vr-ar-platform/) [releases](https://servreality.com/news/xr-swim-a-free-platform-for-content-webxr/) about becoming the storefront for WebXR, but seemed to not get updated. Features a lot of webVR (spec before WebXR) content that no longer works on WebXR spec browsers, but also has many lots of good webXR content. Seems untouched since April 2020 as of this writing in early 2021.
 - [Original A-Frame Showcase](https://aframe.io/showcase/)
   From the A-Frame docs, currently out of date
 - [WeArVr](https://www.wearvr.com/browse/newest?device=webvr)
